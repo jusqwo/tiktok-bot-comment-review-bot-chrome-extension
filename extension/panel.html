@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bouncer</title>
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <img src="icon48.png" alt="" width="22" height="22">
+      <span>Bouncer</span>
+    </div>
+    <div id="svc" class="svc" title="Local Jev service">checking service…</div>
+  </header>
+
+  <section id="video" class="card">
+    <div class="muted">Open one of your TikTok videos to start.</div>
+  </section>
+
+  <section class="card">
+    <label class="field-label" for="transcript">What's said in the video</label>
+    <div id="transcriptStatus" class="muted small"></div>
+    <textarea id="transcript" rows="4" placeholder="Type or paste what you say in the video. Jev uses it to tell real replies from off-topic spam."></textarea>
+    <div class="row">
+      <label class="check"><input type="checkbox" id="replies" checked> Include replies</label>
+      <span class="spacer"></span>
+      <button id="scan" class="primary">Scan comments</button>
+      <button id="stop" hidden>Stop</button>
+    </div>
+    <div id="coverage" class="coverage" hidden></div>
+    <div id="judging" class="muted small" hidden></div>
+    <button id="rejudge" class="link" hidden>Transcript changed — re-judge</button>
+  </section>
+
+  <div id="banner" class="banner" hidden></div>
+
+  <nav class="tabs" id="tabs" hidden>
+    <button data-view="scam" class="tab scam">Likely scam <b id="n-scam">0</b></button>
+    <button data-view="uncertain" class="tab uncertain">Uncertain <b id="n-uncertain">0</b></button>
+    <button data-view="keep" class="tab keep">Keep <b id="n-keep">0</b></button>
+  </nav>
+
+  <div id="bulk" class="bulk" hidden>
+    <label class="check"><input type="checkbox" id="selectAll"> Select all</label>
+    <span class="spacer"></span>
+    <button id="deleteSelected" class="danger" disabled>Delete selected</button>
+  </div>
+  <div id="confirm" class="confirm" hidden></div>
+
+  <ul id="list" class="list"></ul>
+
+  <script type="module" src="panel.js"></script>
+</body>
+</html>

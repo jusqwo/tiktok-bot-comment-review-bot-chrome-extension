@@ -1,0 +1,52 @@
+{
+  "videos": {
+    "finance": {
+      "creator": { "handle": "maya.money", "name": "Maya | Money Tips", "bio": "Ex-bank teller sharing budgeting tips for your 20s. No DMs for money advice — I will never ask you to message me." },
+      "caption": "3 budgeting mistakes I made in my 20s 💸 #personalfinance #budgeting #moneytips",
+      "transcript": "Okay, three budgeting mistakes I made in my twenties. Number one, I didn't track small purchases. Five dollar coffees add up to over a hundred a month. Number two, I paid overdraft fees because I never set up low balance alerts. Number three, I had no emergency fund, so every surprise went on a credit card. Start with a thousand dollar buffer."
+    },
+    "cooking": {
+      "creator": { "handle": "chefnomi", "name": "Nomi Cooks" },
+      "caption": "15-minute garlic butter noodles 🍜 #easyrecipes #dinnerideas",
+      "transcript": null
+    }
+  },
+  "comments": [
+    { "id": "f1", "video": "finance", "author_name": "Maya | Money Tips", "author_handle": "maya.money.official", "text": "Thanks for watching! You've been selected for a giveaway 🎁 message me on Telegram @mayamoney_support to claim", "expect": "scam" },
+    { "id": "f2", "video": "finance", "author_name": "Daniel Brooks", "author_handle": "dan_brooks_fx", "text": "DM me to learn how I turned $500 into $8,000 in 3 weeks with forex 📈 no experience needed", "expect": "scam" },
+    { "id": "f3", "video": "finance", "author_name": "Linda Carter", "author_handle": "lindacarter221", "text": "I was struggling until I found @kate_trades_fx on IG. She manages my portfolio and I just got my 4th payout 🙏🏽 highly recommend her", "expect": "scam" },
+    { "id": "f4", "video": "finance", "author_name": "Rachel", "author_handle": "rachel_m8812", "text": "Same here!! @kate_trades_fx changed my life, reach out to her", "parent": "f3", "expect": "scam" },
+    { "id": "f5", "video": "finance", "author_name": "Mindset King", "author_handle": "mindset.daily.wealth", "text": "Your mindset determines your net worth. Winners focus on winning, losers focus on winners. Follow for daily motivation 🔥", "expect": "scam", "allow": ["uncertain"] },
+    { "id": "f6", "video": "finance", "author_name": "Crypto Recovery Pro", "author_handle": "recover_funds_247", "text": "Lost money to a scam? We recover stolen crypto. WhatsApp +1 (415) 555-0199", "expect": "scam" },
+    { "id": "f7", "video": "finance", "author_name": "Maya Money Tips", "author_handle": "maya_moneytips_backup", "text": "This is my backup account, follow me here in case the main one gets banned 💕 dm me for a special offer", "expect": "scam" },
+    { "id": "f8", "video": "finance", "author_name": "Jess 💸", "author_handle": "jess.earns", "text": "Anyone want to make $300/day from their phone? Text me 'INFO' 📲", "expect": "scam" },
+    { "id": "f9", "video": "finance", "author_name": "Tom", "author_handle": "tomhustles", "text": "Who else wants to learn the secret banks don't want you to know? Inbox me", "expect": "scam" },
+    { "id": "f10", "video": "finance", "author_name": "Kayla", "author_handle": "kayla.earns.daily", "text": "Anyone want to make $300/day from their phone? Text me 'INFO' 📲", "expect": "scam" },
+    { "id": "f11", "video": "finance", "author_name": "Ben | Budget Coach", "author_handle": "benbudgets", "text": "Great tips! I made a free budget template for exactly this, it's on my page if anyone wants it", "expect": "uncertain", "allow": ["keep"] },
+    { "id": "f12", "video": "finance", "author_name": "Priya", "author_handle": "priya.creates", "text": "Love this! I post similar content on my channel too, come say hi 😊", "expect": "uncertain", "allow": ["keep"] },
+    { "id": "f13", "video": "finance", "author_name": "Marcus", "author_handle": "marcus.invests", "text": "Great advice. For anyone serious about investing I run a free community, link in my bio", "expect": "uncertain", "allow": ["scam"] },
+    { "id": "f14", "video": "finance", "author_name": "Sam", "author_handle": "sam_k", "text": "@jordan_lee you need to see this 😂", "expect": "keep", "allow": ["uncertain"] },
+    { "id": "f15", "video": "finance", "author_name": "Nina", "author_handle": "nina.reads", "text": "The book 'I Will Teach You To Be Rich' covers this really well, highly recommend", "expect": "keep", "allow": ["uncertain"] },
+    { "id": "f16", "video": "finance", "author_name": "Chloe", "author_handle": "chloe.w", "text": "Mistake #2 hit way too close to home 😭", "expect": "keep" },
+    { "id": "f17", "video": "finance", "author_name": "Greg", "author_handle": "greg_takes", "text": "Honestly this is terrible advice, budgeting apps are a waste of time", "expect": "keep" },
+    { "id": "f18", "video": "finance", "author_name": "Leah", "author_handle": "leah.freelance", "text": "How do you handle irregular income as a freelancer?", "expect": "keep" },
+    { "id": "f19", "video": "finance", "author_name": "Omar", "author_handle": "omar.k", "text": "lol", "expect": "keep" },
+    { "id": "f20", "video": "finance", "author_name": "Dee", "author_handle": "dee_d", "text": "This is why I'm broke 💀", "expect": "keep" },
+    { "id": "f21", "video": "finance", "author_name": "Maya | Money Tips", "author_handle": "maya.money", "text": "Great question! I'll make a video on that", "parent": "f18", "expect": "keep" },
+    { "id": "f22", "video": "finance", "author_name": "Tasha", "author_handle": "tasha.j", "text": "You literally saved me from overdraft fees, thank you!!", "expect": "keep" },
+    { "id": "f23", "video": "finance", "author_name": "Ivy", "author_handle": "ivy.style", "text": "Where did you get that sweater?", "expect": "keep" },
+    { "id": "f24", "video": "finance", "author_name": "Mo", "author_handle": "mo_first", "text": "first 🙋‍♀️", "expect": "keep" },
+    { "id": "f25", "video": "finance", "author_name": "Jake", "author_handle": "jake.r", "text": "Not you calling $5 coffee a mistake when inflation is like this", "expect": "keep" },
+    { "id": "c1", "video": "cooking", "author_name": "Beth", "author_handle": "beth.home", "text": "Made this tonight and my kids loved it!!", "expect": "keep" },
+    { "id": "c2", "video": "cooking", "author_name": "Raj", "author_handle": "raj_eats", "text": "Can I use olive oil instead of butter?", "expect": "keep" },
+    { "id": "c3", "video": "cooking", "author_name": "Grow Rich Mindset", "author_handle": "grow_rich_mindset", "text": "The rich don't work for money, money works for them. 💰 Check my profile to start your journey", "expect": "scam", "allow": ["uncertain"] },
+    { "id": "c4", "video": "cooking", "author_name": "Nomi Cooks", "author_handle": "nomi.cooks.official", "text": "Congratulations! You are one of our lucky winners 🎉 contact my manager on WhatsApp to claim your prize", "expect": "scam" },
+    { "id": "c5", "video": "cooking", "author_name": "Sarah B", "author_handle": "sarah_b", "text": "Is this actually you Nomi??", "parent": "c4", "expect": "keep", "allow": ["uncertain"] },
+    { "id": "c6", "video": "cooking", "author_name": "Tyler | Chef", "author_handle": "chef_tyler", "text": "Nice! I do a spicy version of this on my page 🌶️", "expect": "uncertain", "allow": ["keep"] },
+    { "id": "c7", "video": "cooking", "author_name": "Ken", "author_handle": "kenji_r", "text": "This isn't real ramen 🙄", "expect": "keep" },
+    { "id": "c8", "video": "cooking", "author_name": "Anna W", "author_handle": "annaw_1990", "text": "Hi dear, you seem like a nice person, can we be friends? Message me on hangouts", "expect": "scam", "allow": ["uncertain"] },
+    { "id": "c9", "video": "cooking", "author_name": "techguy", "author_handle": "techguy", "text": "Bro stop posting and get a real job lmao", "expect": "keep" },
+    { "id": "c10", "video": "cooking", "author_name": "Maria Lopez", "author_handle": "maria.lopez", "text": "I tried ordering from the link on your profile and never got my cookbook 😡", "expect": "keep", "allow": ["uncertain"] },
+    { "id": "c11", "video": "cooking", "author_name": "David Chen", "author_handle": "davidchen_", "text": "Every great chef was once a beginner. Keep pushing, consistency is the key to success in everything. 💯", "expect": "uncertain", "allow": ["keep"] }
+  ]
+}

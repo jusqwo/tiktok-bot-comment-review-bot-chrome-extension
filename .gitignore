@@ -1,0 +1,7 @@
+.env
+node_modules/
+service/usage.json
+service/cache.json
+.remember/
+service/transcripts.json
+service/.bin/

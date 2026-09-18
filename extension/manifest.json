@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Bouncer — TikTok comment moderation",
+  "short_name": "Bouncer",
+  "version": "0.1.0",
+  "description": "Flags scam, impersonation and spam comments on your own TikTok videos (judged by Jev via a local service) and deletes only the ones you choose.",
+  "permissions": ["sidePanel", "tabs", "scripting"],
+  "host_permissions": [
+    "https://www.tiktok.com/*",
+    "http://127.0.0.1/*",
+    "https://*.tiktok.com/*",
+    "https://*.tiktokcdn.com/*",
+    "https://*.tiktokcdn-us.com/*",
+    "https://*.tiktokcdn-eu.com/*",
+    "https://*.tiktokv.com/*",
+    "https://*.tiktokv.us/*",
+    "https://*.tiktokv.eu/*",
+    "https://*.ttwstatic.com/*",
+    "https://*.byteoversea.com/*",
+    "https://*.ibyteimg.com/*"
+  ],
+  "background": { "service_worker": "background.js" },
+  "side_panel": { "default_path": "panel.html" },
+  "action": { "default_title": "Open Bouncer" },
+  "icons": { "16": "icon16.png", "48": "icon48.png", "128": "icon128.png" },
+  "content_scripts": [
+    { "matches": ["https://www.tiktok.com/*"], "js": ["content.js"], "run_at": "document_idle" }
+  ]
+}

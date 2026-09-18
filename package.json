@@ -1,0 +1,15 @@
+{
+  "name": "bouncer",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Bouncer: TikTok comment moderation Chrome extension + local Jev judging service",
+  "type": "module",
+  "scripts": {
+    "start": "node service/server.mjs",
+    "start:mock": "BOUNCER_MOCK=1 node service/server.mjs",
+    "test": "node --test test/unit.test.mjs test/judge.test.mjs",
+    "test:chrome": "node --test test/chrome.test.mjs",
+    "record": "node test/record-jev.mjs"
+  },
+  "engines": { "node": ">=20" }
+}
