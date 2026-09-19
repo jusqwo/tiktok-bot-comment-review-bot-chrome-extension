@@ -28,8 +28,10 @@ const API = process.env.JEV_URL || 'https://api.typesafe.ai/v1/systemone';
 const BUDGET_USD = Number(process.env.BOUNCER_BUDGET_USD || 4);
 const USD_PER_INPUT_TOKEN = 0.042 / 1e6; // jev-1.13: $0.042 per million input tokens, output free
 const CONCURRENCY = 6;
-const USAGE_FILE = process.env.BOUNCER_USAGE_FILE || join(HERE, 'usage.json');
-const CACHE_FILE = process.env.BOUNCER_CACHE_FILE || join(HERE, 'cache.json');
+// Serverless hosts (Vercel) only allow writing to /tmp, which is wiped between cold starts.
+const DATA_DIR = process.env.BOUNCER_DATA_DIR || (process.env.VERCEL ? '/tmp' : HERE);
+const USAGE_FILE = process.env.BOUNCER_USAGE_FILE || join(DATA_DIR, 'usage.json');
+const CACHE_FILE = process.env.BOUNCER_CACHE_FILE || join(DATA_DIR, 'cache.json');
 const CACHE_MAX = 20000;
 
 function loadEnv(file) {
@@ -194,19 +196,24 @@ function send(res, status, obj, origin) {
   res.end(obj === null ? '' : JSON.stringify(obj));
 }
 
-export const server = http.createServer(async (req, res) => {
+// The request handler. `npm start` serves it with node:http; on Vercel, api/*.js export it as a function.
+export async function handler(req, res) {
   const origin = req.headers.origin;
   // Only the extension (or local tools like curl, which send no Origin) may use the key.
   if (origin && !extensionOrigin(origin)) return send(res, 403, { error: 'forbidden origin' });
   if (req.method === 'OPTIONS') return send(res, 204, null, origin);
-  const url = new URL(req.url, 'http://127.0.0.1');
-  if (req.method === 'GET' && url.pathname === '/health') return send(res, 200, { ok: true, ...spend() }, origin);
-  if (req.method === 'POST' && url.pathname === '/classify') {
+  const path = new URL(req.url, 'http://127.0.0.1').pathname.replace(/^\/api(?=\/)/, '');
+  if (req.method === 'GET' && path === '/health') return send(res, 200, { ok: true, ...spend() }, origin);
+  if (req.method === 'POST' && path === '/classify') {
     if (req.headers['x-bouncer'] !== '1') return send(res, 403, { error: 'missing x-bouncer header' }, origin);
     let raw = '';
-    for await (const chunk of req) {
-      raw += chunk;
-      if (raw.length > 5e6) return send(res, 413, { error: 'request too large' }, origin);
+    if (req.body !== undefined) {
+      raw = typeof req.body === 'string' ? req.body : JSON.stringify(req.body); // already read by the host (Vercel)
+    } else {
+      for await (const chunk of req) {
+        raw += chunk;
+        if (raw.length > 5e6) return send(res, 413, { error: 'request too large' }, origin);
+      }
     }
     try {
       const body = JSON.parse(raw);
@@ -222,7 +229,9 @@ export const server = http.createServer(async (req, res) => {
     }
   }
   send(res, 404, { error: 'not found' }, origin);
-});
+}
+
+export const server = http.createServer(handler);
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   server.listen(PORT, HOST, () => {

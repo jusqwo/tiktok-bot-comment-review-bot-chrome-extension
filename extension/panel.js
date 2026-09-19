@@ -316,7 +316,7 @@ function renderVideo() {
       ? `<span class="pill warn">not your video — logged in as @${esc(c.viewerHandle)}</span>`
       : '<span class="pill warn">not logged in?</span>';
   const modal = c.layout === 'modal'
-    ? `<div class="note">Opened from a profile grid. Bouncer can scan here, but TikTok ignores its Delete clicks in this pop-up. <button id="openPage" class="link">Open video page</button></div>`
+    ? `<div class="popup-note">Opened from a profile grid. Bouncer can scan here, but TikTok ignores its Delete clicks in this pop-up. <button id="openPage" class="link">Open video page</button></div>`
     : '';
   v.innerHTML = `
     <div class="video-title">${esc(c.creator.name || '@' + c.creator.handle)} <span class="muted">@${esc(c.creator.handle)}</span> ${owner}</div>

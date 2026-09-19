@@ -57,8 +57,8 @@ button, textarea, input { font: inherit; color: inherit; }
 .pill { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 99px; background: var(--line); margin-left: 4px; }
 .pill.ok { background: var(--keep-bg); color: var(--keep); }
 .pill.warn { background: var(--unsure-bg); color: var(--unsure); }
-.note { margin-top: 8px; padding: 7px 9px; border-radius: 8px; background: var(--unsure-bg); color: var(--text); font-size: 12px; }
-.note button.link { padding: 0; font-weight: 600; }
+.popup-note { margin-top: 8px; padding: 7px 9px; border-radius: 8px; background: var(--unsure-bg); color: var(--text); font-size: 12px; }
+.popup-note button.link { padding: 0; font-weight: 600; }
 
 .field-label { font-weight: 600; display: block; }
 select { font: inherit; color: inherit; background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 2px 4px; }

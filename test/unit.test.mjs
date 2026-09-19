@@ -299,3 +299,33 @@ test('flagScamAccounts: filler from a scam account is not kept, and its signalle
   assert.deepEqual(['1', '2', '3', '4'].map((k) => r.get(k).bucket), ['scam', 'uncertain', 'scam', 'keep']);
   assert.match(r.get('2').reasons[0], /also posted a likely scam/);
 });
+
+test('Vercel entry points: /api paths, a body already parsed by the host, CORS preflight', async () => {
+  // Imitates Vercel's Node runtime: the host reads the JSON body into req.body before calling the function.
+  const script = `
+    import http from 'node:http';
+    const { default: fn } = await import('./api/classify.js');
+    const srv = http.createServer(async (req, res) => {
+      if (req.method === 'POST') { let raw = ''; for await (const c of req) raw += c; req.body = JSON.parse(raw); }
+      fn(req, res);
+    });
+    srv.listen(0, '127.0.0.1', () => console.log('PORT=' + srv.address().port));
+  `;
+  const child = spawn(process.execPath, ['--input-type=module', '-e', script], { cwd: ROOT, env: { ...process.env, VERCEL: '1', BOUNCER_MOCK: '1' } });
+  let out = '';
+  child.stdout.on('data', (d) => (out += d));
+  for (let i = 0; i < 50 && !out.includes('PORT='); i++) await new Promise((r) => setTimeout(r, 100));
+  const base = `http://127.0.0.1:${out.match(/PORT=(\d+)/)[1]}`;
+  try {
+    const ext = { origin: 'chrome-extension://abc' };
+    const pre = await fetch(`${base}/api/classify`, { method: 'OPTIONS', headers: ext });
+    assert.equal(pre.status, 204);
+    assert.equal(pre.headers.get('access-control-allow-origin'), 'chrome-extension://abc');
+    assert.equal((await (await fetch(`${base}/api/health`, { headers: ext })).json()).mode, 'mock');
+    const r = await fetch(`${base}/api/classify`, { method: 'POST', headers: { ...ext, 'content-type': 'application/json', 'x-bouncer': '1' }, body: JSON.stringify(classifyBody(2)) });
+    assert.equal(r.status, 200);
+    assert.equal((await r.json()).results.length, 3);
+  } finally {
+    child.kill();
+  }
+});
