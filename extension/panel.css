@@ -61,6 +61,7 @@ button, textarea, input { font: inherit; color: inherit; }
 .note button.link { padding: 0; font-weight: 600; }
 
 .field-label { font-weight: 600; display: block; }
+select { font: inherit; color: inherit; background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 2px 4px; }
 textarea { width: 100%; margin: 6px 0 8px; padding: 7px 8px; border: 1px solid var(--line); border-radius: 8px; background: transparent; resize: vertical; }
 .row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .spacer { flex: 1; }

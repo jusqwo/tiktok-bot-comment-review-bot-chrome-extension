@@ -1,11 +1,13 @@
 #!/usr/bin/env node
-// Bouncer local service. The only place TYPESAFE_API_KEY is read; it never leaves this process
-// except in the Authorization header to api.typesafe.ai. Start with `npm start`.
+// Bouncer service: the only place TYPESAFE_API_KEY lives. It never leaves this process except in
+// the Authorization header to api.typesafe.ai. Run it locally (`npm start`) or on any Node host.
+//   HOST=0.0.0.0 PORT=...                 listen publicly when hosted (default 127.0.0.1:8787)
+//   ALLOWED_ORIGINS=chrome-extension://<id> only this extension may call it (default: any extension)
+//   BOUNCER_MAX_COMMENTS_PER_HOUR=5000    per-IP limit so one user can't drain the Jev budget
+//   TRUST_PROXY=1                         use X-Forwarded-For behind a reverse proxy
 import http from 'node:http';
-import { execFile } from 'node:child_process';
-import { createHash, randomUUID } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
-import { tmpdir } from 'node:os';
+import { createHash } from 'node:crypto';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildRequest, decide } from './judge.mjs';
@@ -15,7 +17,10 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, '..');
 loadEnv(join(ROOT, '.env'));
 
-const PORT = Number(process.env.BOUNCER_PORT || 8787);
+const PORT = Number(process.env.PORT || process.env.BOUNCER_PORT || 8787);
+const HOST = process.env.HOST || '127.0.0.1';
+const ALLOWED = (process.env.ALLOWED_ORIGINS || '').split(',').map((x) => x.trim()).filter(Boolean);
+const MAX_PER_HOUR = Number(process.env.BOUNCER_MAX_COMMENTS_PER_HOUR || 5000);
 const MOCK = process.env.BOUNCER_MOCK === '1';
 const KEY = process.env.TYPESAFE_API_KEY || '';
 const MODEL = process.env.JEV_MODEL || 'jev-latest';
@@ -44,13 +49,14 @@ const readJson = (f, fallback) => {
 // ---- spend tracking (a small JSON file, not a database) ----
 const usage = readJson(USAGE_FILE, { live_calls: 0, input_tokens: 0, cost_usd: 0, recent: [] });
 function recordUsage(u) {
+  Object.assign(usage, readJson(USAGE_FILE, usage)); // another process (e.g. npm run record) may have added spend
   usage.live_calls += 1;
   usage.input_tokens += u.input_tokens || 0;
   usage.cost_usd = usage.input_tokens * USD_PER_INPUT_TOKEN;
   usage.recent = [{ at: new Date().toISOString(), input_tokens: u.input_tokens || 0 }, ...usage.recent].slice(0, 50);
   writeFileSync(USAGE_FILE, JSON.stringify(usage, null, 2));
 }
-const spend = () => ({
+const spend = () => (Object.assign(usage, readJson(USAGE_FILE, usage)), {
   mode: MOCK ? 'mock' : 'live',
   model: MOCK ? 'mock-jev' : MODEL,
   live_calls: usage.live_calls,
@@ -67,51 +73,6 @@ function saveCache() {
   const entries = [...cache.entries()].slice(-CACHE_MAX);
   writeFileSync(CACHE_FILE, JSON.stringify(Object.fromEntries(entries)));
   cacheDirty = false;
-}
-
-// ---- on-device transcription (macOS 26+: Apple SpeechAnalyzer via a tiny Swift helper) ----
-const TRANSCRIPTS_FILE = process.env.BOUNCER_TRANSCRIPTS_FILE || join(HERE, 'transcripts.json');
-const transcripts = readJson(TRANSCRIPTS_FILE, {});
-const HELPER_SRC = join(HERE, 'transcribe.swift');
-const HELPER_BIN = join(HERE, '.bin', 'transcribe');
-const run = (cmd, args, opts = {}) =>
-  new Promise((resolve, reject) =>
-    execFile(cmd, args, { maxBuffer: 20e6, ...opts }, (err, stdout, stderr) =>
-      err ? reject(Object.assign(new Error(String(stderr || err.message).trim()), { code: err.code })) : resolve(stdout),
-    ),
-  );
-let helperReady = null;
-function ensureHelper() {
-  if (process.platform !== 'darwin') return Promise.reject(Object.assign(new Error('on-device transcription needs macOS 26 or newer'), { status: 501 }));
-  const fresh = existsSync(HELPER_BIN) && statSync(HELPER_BIN).mtimeMs >= statSync(HELPER_SRC).mtimeMs;
-  if (fresh) return Promise.resolve(HELPER_BIN);
-  helperReady ??= (async () => {
-    mkdirSync(dirname(HELPER_BIN), { recursive: true });
-    console.log('[bouncer] building the on-device transcriber (one time)…');
-    await run('swiftc', ['-O', '-parse-as-library', HELPER_SRC, '-o', HELPER_BIN], { timeout: 300000 }).catch((e) => {
-      throw Object.assign(new Error(`could not build the transcriber (needs macOS 26 + Xcode command line tools): ${e.message.slice(0, 200)}`), { status: 501 });
-    });
-    return HELPER_BIN;
-  })().finally(() => (helperReady = null));
-  return helperReady;
-}
-
-async function transcribe(audio, { video, lang }) {
-  const key = `${video || createHash('sha256').update(audio).digest('hex').slice(0, 16)}:${lang}`;
-  if (transcripts[key]) return { ...transcripts[key], cached: true };
-  const bin = await ensureHelper();
-  const file = join(tmpdir(), `bouncer-${randomUUID()}.audio`);
-  writeFileSync(file, audio);
-  try {
-    const out = JSON.parse(await run(bin, [file, lang || 'en'], { timeout: 600000 }));
-    transcripts[key] = { text: out.text, locale: out.locale, seconds: out.seconds };
-    writeFileSync(TRANSCRIPTS_FILE, JSON.stringify(transcripts));
-    return { ...transcripts[key], cached: false };
-  } catch (e) {
-    throw Object.assign(new Error(e.code === 2 ? `the video's language (${lang}) is not supported by on-device transcription` : `transcription failed: ${e.message.slice(0, 200)}`), { status: e.code === 2 ? 422 : 500 });
-  } finally {
-    rmSync(file, { force: true });
-  }
 }
 
 class BudgetError extends Error {}
@@ -207,9 +168,24 @@ async function classify({ video, comments }) {
   return { results: results.filter(Boolean), budget_stop: budgetHit, usage: spend() };
 }
 
+const extensionOrigin = (o) => !!o && o.startsWith('chrome-extension://') && (!ALLOWED.length || ALLOWED.includes(o));
+
+// Per-IP count of comments judged in the current hour.
+const perIp = new Map();
+function overLimit(req, n) {
+  const ip = (process.env.TRUST_PROXY === '1' && req.headers['x-forwarded-for']?.split(',')[0].trim()) || req.socket.remoteAddress;
+  const hour = Math.floor(Date.now() / 3600e3);
+  const e = perIp.get(ip);
+  const used = e && e.hour === hour ? e.count : 0;
+  if (used + n > MAX_PER_HOUR) return true;
+  perIp.set(ip, { hour, count: used + n });
+  if (perIp.size > 10000) perIp.clear();
+  return false;
+}
+
 function send(res, status, obj, origin) {
   const headers = { 'Content-Type': 'application/json' };
-  if (origin?.startsWith('chrome-extension://')) {
+  if (extensionOrigin(origin)) {
     headers['Access-Control-Allow-Origin'] = origin;
     headers['Access-Control-Allow-Headers'] = 'content-type, x-bouncer';
     headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS';
@@ -221,27 +197,10 @@ function send(res, status, obj, origin) {
 export const server = http.createServer(async (req, res) => {
   const origin = req.headers.origin;
   // Only the extension (or local tools like curl, which send no Origin) may use the key.
-  if (origin && !origin.startsWith('chrome-extension://')) return send(res, 403, { error: 'forbidden origin' });
+  if (origin && !extensionOrigin(origin)) return send(res, 403, { error: 'forbidden origin' });
   if (req.method === 'OPTIONS') return send(res, 204, null, origin);
   const url = new URL(req.url, 'http://127.0.0.1');
-  if (req.method === 'GET' && url.pathname === '/health') return send(res, 200, { ok: true, ...spend(), transcription: process.platform === 'darwin' }, origin);
-  if (req.method === 'POST' && url.pathname === '/transcribe') {
-    if (req.headers['x-bouncer'] !== '1') return send(res, 403, { error: 'missing x-bouncer header' }, origin);
-    const chunks = [];
-    let size = 0;
-    for await (const chunk of req) {
-      size += chunk.length;
-      if (size > 80e6) return send(res, 413, { error: 'audio too large' }, origin);
-      chunks.push(chunk);
-    }
-    try {
-      const out = await transcribe(Buffer.concat(chunks), { video: url.searchParams.get('video'), lang: url.searchParams.get('lang') || 'en' });
-      console.log(`[bouncer] transcript for video ${url.searchParams.get('video')}: ${out.text.length} chars (${out.locale}, ${Math.round(out.seconds)} s${out.cached ? ', cached' : ''}) — on-device, no cost`);
-      return send(res, 200, out, origin);
-    } catch (e) {
-      return send(res, e.status || 500, { error: e.message }, origin);
-    }
-  }
+  if (req.method === 'GET' && url.pathname === '/health') return send(res, 200, { ok: true, ...spend() }, origin);
   if (req.method === 'POST' && url.pathname === '/classify') {
     if (req.headers['x-bouncer'] !== '1') return send(res, 403, { error: 'missing x-bouncer header' }, origin);
     let raw = '';
@@ -250,7 +209,11 @@ export const server = http.createServer(async (req, res) => {
       if (raw.length > 5e6) return send(res, 413, { error: 'request too large' }, origin);
     }
     try {
-      const out = await classify(JSON.parse(raw));
+      const body = JSON.parse(raw);
+      if (overLimit(req, Array.isArray(body.comments) ? body.comments.length : 1)) {
+        return send(res, 429, { error: `hourly limit of ${MAX_PER_HOUR} comments reached; try again later` }, origin);
+      }
+      const out = await classify(body);
       const live = out.results.filter((r) => !r.cached && !r.skipped && !r.error).length;
       console.log(`[bouncer] judged ${out.results.length} comments (${live} live, ${out.results.length - live} cached/skipped) — spent $${out.usage.spent_usd} of $${out.usage.budget_usd}`);
       return send(res, 200, out, origin);
@@ -262,9 +225,9 @@ export const server = http.createServer(async (req, res) => {
 });
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  server.listen(PORT, '127.0.0.1', () => {
+  server.listen(PORT, HOST, () => {
     const s = spend();
-    console.log(`[bouncer] listening on http://127.0.0.1:${PORT} — ${s.mode} mode (${s.model})`);
+    console.log(`[bouncer] listening on http://${HOST}:${PORT} — ${s.mode} mode (${s.model})`);
     if (!MOCK) console.log(`[bouncer] key ${KEY ? 'loaded from .env' : 'MISSING from .env'}; spent $${s.spent_usd} of $${s.budget_usd} budget over ${s.live_calls} live calls`);
   });
 }

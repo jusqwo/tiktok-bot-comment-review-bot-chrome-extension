@@ -2,16 +2,17 @@
 // look-alike names, and comments repeated across accounts. Shared by the panel and tests.
 
 const URL_RE = /\b(?:https?:\/\/|www\.)\S+|\b[a-z0-9-]+\.(?:com|net|org|io|co|me|ly|app|link|bio|site|online|store|shop|xyz|info|live|club|pro|vip|top)(?:\/\S*)?|\b(?:wa\.me|t\.me|bit\.ly|linktr\.ee)\/\S*/gi;
-const MENTION_RE = /(^|[^\w@])@([a-z0-9._]{2,30})/gi;
-const EMAIL_RE = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i;
+const EMAIL_RE = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/gi;
+const MENTION_RE = /@([\p{L}\p{N}._]{2,30})/gu; // run on text with emails removed ("Tips@Victoria" counts)
 const PHONE_RE = /(?:\+?\d[\d\s().-]{7,}\d)/;
 
 export function extractFacts(text = '') {
   const t = text.normalize('NFKC');
-  const links = [...new Set((t.match(URL_RE) || []).map((s) => s.replace(/[),.!?]+$/, '')))];
-  const mentions = [...new Set([...t.matchAll(MENTION_RE)].map((m) => '@' + m[2].toLowerCase()))];
+  const noEmail = t.replace(EMAIL_RE, ' ');
+  const links = [...new Set((noEmail.match(URL_RE) || []).map((s) => s.replace(/[),.!?]+$/, '')))];
+  const mentions = [...new Set([...noEmail.matchAll(MENTION_RE)].map((m) => '@' + m[1].toLowerCase().replace(/\.+$/, '')))];
   const digits = (t.match(PHONE_RE) || [''])[0].replace(/\D/g, '');
-  return { links, mentions, has_phone: digits.length >= 8, has_email: EMAIL_RE.test(t) };
+  return { links, mentions, has_phone: digits.length >= 8, has_email: noEmail !== t };
 }
 
 // Text key used to spot the same message posted by several accounts.
@@ -20,8 +21,9 @@ export function normalizeText(text = '') {
     .normalize('NFKD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
+    .replace(EMAIL_RE, ' email ')
     .replace(URL_RE, ' url ')
-    .replace(MENTION_RE, '$1 @ ')
+    .replace(MENTION_RE, ' @ ')
     .replace(/\d+/g, '0')
     .replace(/[^\p{L}\p{N}@]+/gu, ' ')
     .trim();
@@ -65,13 +67,18 @@ export function resemblesCreator(author, creator) {
   return false;
 }
 
+// Mentions in the text, lower-cased, without the creator's own handle.
+const mentionsOf = (text, creatorHandle) => extractFacts(text).mentions.filter((m) => m !== '@' + creatorHandle);
+
 // Annotate scanned comments in place with facts, repeat patterns and "is the creator".
 export function annotate(comments, creator) {
   const ch = (creator.handle || '').replace(/^@/, '').toLowerCase();
   const byText = new Map();
   const byAuthor = new Map();
   const byAuthorText = new Map();
+  const byMention = new Map(); // @name -> number of comments on this video that mention it
   for (const c of comments) {
+    for (const m of new Set(mentionsOf(c.text, ch))) byMention.set(m, (byMention.get(m) || 0) + 1);
     const h = (c.author_handle || '').replace(/^@/, '').toLowerCase();
     byAuthor.set(h, (byAuthor.get(h) || 0) + 1);
     const key = normalizeText(c.text);
@@ -91,8 +98,25 @@ export function annotate(comments, creator) {
       same_text_other_accounts: authors ? authors.size - (authors.has(h) ? 1 : 0) : 0,
       same_text_by_this_author: byAuthorText.get(h + '|' + normalizeText(c.text)) || 1,
       author_comment_count: byAuthor.get(h) || 1,
+      same_mention_in_comments: Math.max(0, ...mentionsOf(c.text, ch).map((m) => byMention.get(m))),
     };
     c.author_is_creator = !!ch && h === ch;
   }
   return comments;
+}
+
+// After judging: an account that posted a likely scam on this video doesn't get its other comments
+// kept (scammers pad with filler), and its other comments that carry a scam signal become likely scams.
+export function flagScamAccounts(comments, results) {
+  const scammers = new Set(comments.filter((c) => results.get(c.key)?.bucket === 'scam').map((c) => c.author_handle));
+  for (const c of comments) {
+    const r = results.get(c.key);
+    if (!r || r.bucket === 'scam' || r.skipped || !scammers.has(c.author_handle)) continue;
+    const s = r.signals || {};
+    const signal = Math.max(s.impersonation || 0, s.dm_to_learn || 0, s.off_platform || 0, s.third_party_shill || 0, s.self_promotion || 0);
+    const why = 'This account also posted a likely scam here';
+    if (signal >= 0.5) results.set(c.key, { ...r, bucket: 'scam', reasons: [why, ...r.reasons.filter((x) => !x.startsWith('Jev is not sure'))].slice(0, 3) });
+    else if (r.bucket === 'keep') results.set(c.key, { ...r, bucket: 'uncertain', reasons: [why] });
+  }
+  return results;
 }

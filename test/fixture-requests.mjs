@@ -1,10 +1,16 @@
-// Builds the exact Jev requests the service would send for the classification fixtures.
+// Builds the exact Jev requests the service would send for the classification fixtures:
+// comments.json (written examples; facts computed here) and real-comments.json (live TikTok
+// comments from @orangie videos, with the facts computed from their whole video at capture time).
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { annotate } from '../extension/lib/patterns.js';
 import { buildRequest } from '../service/judge.mjs';
 
-export const fixtures = JSON.parse(readFileSync(new URL('./fixtures/comments.json', import.meta.url), 'utf8'));
+const load = (f) => JSON.parse(readFileSync(new URL(`./fixtures/${f}`, import.meta.url), 'utf8'));
+export const fixtures = load('comments.json');
+export const realFixtures = load('real-comments.json');
+
+const hash = (body) => createHash('sha256').update(JSON.stringify(body)).digest('hex').slice(0, 16);
 
 export function fixtureRequests(model = 'jev-latest') {
   const byId = Object.fromEntries(fixtures.comments.map((c) => [c.id, c]));
@@ -24,8 +30,13 @@ export function fixtureRequests(model = 'jev-latest') {
     const video = { creator: v.creator, caption: v.caption, transcript: v.transcript || '' };
     for (const c of comments) {
       const body = buildRequest(video, c, model);
-      out.push({ c, video, body, hash: createHash('sha256').update(JSON.stringify(body)).digest('hex').slice(0, 16) });
+      out.push({ c, video, body, hash: hash(body) });
     }
+  }
+  for (const c of realFixtures.comments) {
+    const video = realFixtures.videos[c.video];
+    const body = buildRequest(video, c, model);
+    out.push({ c, video, body, hash: hash(body) });
   }
   return out;
 }

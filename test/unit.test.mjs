@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
-import { annotate, extractFacts, resemblesCreator } from '../extension/lib/patterns.js';
+import { annotate, extractFacts, flagScamAccounts, resemblesCreator } from '../extension/lib/patterns.js';
 import { buildState, decide } from '../service/judge.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
@@ -254,4 +254,48 @@ test('service: upstream errors are reported with the key redacted', async () => 
     svc.stop();
     fake.srv.close();
   }
+});
+
+test('service (hosted mode): only the allowed extension may call it, and each IP has an hourly cap', async () => {
+  const svc = await startService({ BOUNCER_MOCK: '1', ALLOWED_ORIGINS: 'chrome-extension://good', BOUNCER_MAX_COMMENTS_PER_HOUR: '5' });
+  try {
+    const ok = { 'content-type': 'application/json', 'x-bouncer': '1', origin: 'chrome-extension://good' };
+    assert.equal((await post(svc.base, classifyBody(1), { ...ok, origin: 'chrome-extension://other' })).status, 403);
+    assert.equal((await post(svc.base, classifyBody(2), ok)).status, 200); // 3 comments incl. the creator's
+    const over = await post(svc.base, classifyBody(2), ok); // 3 more -> 6 > 5
+    assert.equal(over.status, 429);
+    assert.match((await over.json()).error, /hourly limit/);
+  } finally {
+    svc.stop();
+  }
+});
+
+test('annotate counts comments pushing the same @account (display-name mentions, "Tips@name" too)', () => {
+  const cs = [
+    { author_handle: 'a', text: 'Ask @Marrion Jaime' },
+    { author_handle: 'a', text: 'Best teacher @Marrion Jaime 🥰' },
+    { author_handle: 'b', text: 'Tips@Marrion Jaime' },
+    { author_handle: 'c', text: '@orangie nice video' },
+    { author_handle: 'd', text: '@EvanH look' },
+  ];
+  annotate(cs, { handle: 'orangie' });
+  assert.deepEqual(cs.map((c) => c.patterns.same_mention_in_comments), [3, 3, 3, 0, 1]);
+});
+
+test('flagScamAccounts: filler from a scam account is not kept, and its signalled comments become scams', () => {
+  const cs = [
+    { key: '1', author_handle: 'spammer' },
+    { key: '2', author_handle: 'spammer' },
+    { key: '3', author_handle: 'spammer' },
+    { key: '4', author_handle: 'fan' },
+  ];
+  const r = new Map([
+    ['1', { bucket: 'scam', reasons: ['DM pitch'], signals: { dm_to_learn: 0.9 } }],
+    ['2', { bucket: 'keep', reasons: ['Genuine comment'], signals: { dm_to_learn: 0.1 } }],
+    ['3', { bucket: 'uncertain', reasons: ['Jev is not sure this is a scam'], signals: { self_promotion: 0.7 } }],
+    ['4', { bucket: 'keep', reasons: ['Genuine comment'], signals: {} }],
+  ]);
+  flagScamAccounts(cs, r);
+  assert.deepEqual(['1', '2', '3', '4'].map((k) => r.get(k).bucket), ['scam', 'uncertain', 'scam', 'keep']);
+  assert.match(r.get('2').reasons[0], /also posted a likely scam/);
 });

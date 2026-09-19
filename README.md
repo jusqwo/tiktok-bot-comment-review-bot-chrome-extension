@@ -2,19 +2,21 @@
 
 Bouncer is a Chrome extension for moderating comments on your own TikTok videos. It flags scam, impersonation and spam comments and deletes only the ones you pick.
 
-Jev (TypeSafe) judges each comment through a small local Node service. The API key stays in that service and never reaches the extension or the page.
+Jev (TypeSafe) judges each comment through a small Node service that holds the API key. The key never reaches the extension or the page.
 
 ```
-extension/        Chrome extension (side panel + content script), no build step
-service/          local service: reads .env, calls Jev, tracks spend, caches, transcribes audio
-  judge.mjs       the state sent to Jev, the questions asked, the thresholds (all policy lives here)
-  transcribe.swift  on-device speech-to-text helper (macOS 26 SpeechAnalyzer), built on first use
-test/             unit tests, recorded Jev answers, TikTok-like fixtures, Chrome smoke test
+extension/           Chrome extension (side panel + content script), no build step
+  config.js          SERVICE_URL: the one line to change when publishing
+  lib/transcribe.js  speech-to-text of the video's audio with Chrome's built-in speech recognition
+  lib/patterns.js    facts counted in code: repeats, @account campaigns, look-alike names, contacts
+service/             the service: reads .env, calls Jev, spend cap, cache, rate limit (zero dependencies)
+  judge.mjs          the state sent to Jev, the questions asked, the thresholds (all policy lives here)
+test/                unit tests, recorded Jev answers (written + real TikTok comments), Chrome smoke test
 ```
 
-## Setup (about 2 minutes)
+## Run it locally (about 2 minutes)
 
-1. You need Node 20 or newer. There's nothing to install: the project has no npm dependencies. For automatic transcripts you also need macOS 26 with Xcode command line tools.
+1. You need Node 20 or newer and Chrome 135 or newer. There's nothing to install.
 2. Put your key in `.env` in this folder:
    ```
    TYPESAFE_API_KEY=...
@@ -23,78 +25,78 @@ test/             unit tests, recorded Jev answers, TikTok-like fixtures, Chrome
    ```
    npm start
    ```
-   Use `npm run start:mock` to work offline with a fake Jev that costs nothing.
 4. Load the extension in Chrome:
    1. Open `chrome://extensions`.
-   2. Turn on **Developer mode**. Chrome disables unpacked extensions without it.
-   3. Click **Load unpacked** and select the `extension/` folder.
-5. Open one of your videos, for example `tiktok.com/@you/video/…`. Click the Bouncer toolbar icon to open the side panel, then click **Scan comments**.
+   2. Turn on **Developer mode**.
+   3. Click **Load unpacked** and select `extension/`.
+5. Open one of your videos on tiktok.com, click the Bouncer icon, then **Scan comments**.
 
-## Using it
+## Publishing (Chrome Web Store)
+
+End users don't run anything. You host the service once, and the extension calls it.
+
+1. **Deploy the service.** `service/server.mjs` has no dependencies and runs on any Node host (Render, Fly.io, Railway, a VPS). Set:
+   - `TYPESAFE_API_KEY`
+   - `HOST=0.0.0.0`
+   - `PORT` (usually provided by the host)
+   - `ALLOWED_ORIGINS=chrome-extension://<your published extension id>`
+   - `TRUST_PROXY=1` if the host puts a proxy in front
+   - optionally `BOUNCER_BUDGET_USD` and `BOUNCER_MAX_COMMENTS_PER_HOUR` (per IP, default 5000)
+
+   Because the spend ledger and cache are small JSON files, give the service a persistent disk, or accept that both reset on redeploy.
+2. **Point the extension at it:** put the service's `https://` URL in `extension/config.js`, then zip `extension/` and upload it.
+3. **Write a store privacy note.** Comment text plus the video's caption and transcript go to your service and to TypeSafe. For videos without TikTok subtitles, the audio goes to Chrome's speech recognition, which is Google's.
+
+Paid plans would sit in front of step 1 (for example a license key checked by the service). That isn't built yet.
+
+## How it works
 
 - **Transcript.** Jev needs to know what the video says so that on-topic replies aren't mistaken for spam. Bouncer uses the first of these that's available:
   1. TikTok's own subtitles.
-  2. The video's audio, transcribed **on this Mac** by Apple's built-in speech model: free, private, and about 2 seconds per minute of video. It covers 30 languages, including English, Spanish, French, German, Portuguese, Italian, Japanese, Korean and Chinese.
-  3. What you type in the panel.
+  2. The video's audio, transcribed by Chrome's built-in speech recognition. It runs in the extension, in parallel 12-second slices: about 15–20 s for a 1-minute video, with no key and no cost. It covers 20 languages, including Lithuanian, via the language picker.
+  3. What you type.
 
-  The transcript is shown in an editable box, and Jev is told where it came from. Lithuanian isn't supported by Apple's model, so type those. Music-only videos come back as "no speech found".
-- **Scanning.** The scan opens the comments, scrolls through them step by step (keep the TikTok tab visible) and expands replies. It removes duplicates by TikTok's comment ID where available, otherwise by author, text and thread. The panel shows three numbers:
-  - comments scanned
-  - the total TikTok shows
-  - **Complete** or **Partial**, with the reason, such as "TikTok stopped loading more comments" or "stopped by you"
-
-  Bouncer never claims coverage it didn't get.
+  The editable box shows exactly what Jev gets, and the whole transcript is sent (up to 12,000 characters, enough for any TikTok).
 - **Context sent to Jev** for each comment:
-  - the caption, the transcript, and your handle, name and bio
-  - the commenter's name and handle
+  - the creator's handle, name and bio
+  - the caption (TikTok's title) and the full transcript
+  - the comment and its author's name and handle
   - the parent comment, and the first replies
-  - repeat patterns counted in code: the same text from this account or from others, and how many comments the account left
-  - contact details found in the text
-  - whether the name looks like yours
+  - facts counted in code: copies of the same text, the same @account pushed across comments, how many comments the account left, contact details found, and whether the name looks like the creator's
 
-  Anything missing is listed as `not_available`, never invented.
-- **Groups.** Each comment lands in **Likely scam**, **Uncertain** or **Keep**, with a short reason and a confidence. "Likely scam" needs Jev's overall verdict plus a named signal: impersonation, a "DM me to learn" pitch, an off-TikTok contact request, a third-party "expert", or off-topic promotion. The same signal also counts when it comes from an account flooding the video (the same text 3+ times, or 5+ off-topic comments). Promotion that could be genuine stays **Uncertain**, and so does a flood with no scam signal.
-- **Deleting.** You can delete one comment or a selection, from any group, after an in-panel confirmation. For each comment, Bouncer:
-  - checks the tab still shows the scanned video
-  - re-finds the comment by exact author and text (and ID and parent when available)
-  - refuses if it finds zero or more than one match
-  - opens TikTok's own ⋯ menu and clicks TikTok's **Delete** control
-  - confirms TikTok's dialog if one appears
-  - counts the deletion only when the comment no longer appears on the page
-
-  A batch stops at the first problem, and the rest are left untouched.
-- **Videos opened from your profile grid** open in a pop-up where TikTok ignores scripted clicks on ⋯. Bouncer can still scan there, but it disables Delete and offers **Open video page**. On the normal video page, deletion works.
-
-## Spend
-
-The service logs every live Jev call to `service/usage.json`, which the panel header also shows. It reserves a worst-case cost before each call, so parallel calls can't overshoot the budget. The default cap is **$4** (`BOUNCER_BUDGET_USD`). Answers are cached in `service/cache.json`, so re-judging the same comments is free. Transcription runs on-device and costs nothing.
-
-Jev costs $0.042 per million input tokens, which works out to roughly **$0.00006 per comment**, or about $0.06 per 1,000 comments. All development and testing used **$0.043** of the $5 credit.
+  Anything missing is marked `not_available`, never invented.
+- **Groups.** Each comment lands in **Likely scam**, **Uncertain** or **Keep**, with a short reason and a confidence.
+  - "Likely scam" needs Jev's verdict plus a named signal: impersonation, a "DM me to learn" pitch, an off-TikTok contact request, a third-party "teacher"/"expert", or off-topic promotion.
+  - Inside a campaign (copy-paste, or several comments pushing one @account), a moderate signal is enough.
+  - After judging, an account with a likely scam can't keep its other comments.
+  - Ambiguous promotion stays Uncertain.
+- **Scanning and deleting.**
+  - The scan reports comments scanned, the total TikTok shows, and Complete or Partial, with the reason.
+  - Deleting works from any group, after a confirmation. Before each deletion Bouncer checks the exact author and text, clicks TikTok's own Delete, and confirms the comment is gone.
+  - It stops if the page changed or the match is ambiguous.
+  - In the profile-grid pop-up, TikTok ignores scripted clicks, so Bouncer offers **Open video page** instead.
 
 ## Tests
 
 ```
-npm test             # 21 unit tests + replay of recorded Jev answers (no API spend)
-npm run test:chrome  # the real extension in Chrome for Testing against TikTok-like pages (no spend)
-npm run record       # one live Jev pass over test/fixtures/comments.json; re-run after editing questions
+npm test             # 24 unit tests + 78 recorded Jev judgements replayed (no spend)
+npm run test:chrome  # the real extension in Chrome for Testing on TikTok-like pages, incl. speech-to-text
+npm run record       # re-ask Jev for the fixtures after changing questions (about $0.003)
 ```
 
-`test:chrome` looks for Chrome for Testing/Chromium in the Playwright cache, or at `CHROME_PATH`. Branded Chrome ignores `--load-extension`. It uses macOS `say` to make the test audio.
-
-## Test results (2026-09-19)
+## Results (2026-09-19)
 
 | What | Result |
 |---|---|
-| Classification: 36 realistic comments (scams, impersonators, shills, ambiguous promotion, rude-but-genuine), live Jev | **36/36** in the expected group. No genuine comment was flagged as a likely scam, and no scam was kept. |
-| Unit tests: pattern facts, no invented context, decision and flood rules, service (origin guard, key redaction, cache, budget stop under parallel load) | **21/21** |
-| Chrome smoke test on both TikTok layouts (standalone page, and profile pop-up with a virtualized list) | **8/8**: subtitles; on-device transcript from the video's audio; scroll and reply loading; honest partial and complete coverage; groups; bulk delete with verification; refusal on an ambiguous duplicate, a changed page, or a missing comment; the pop-up's Delete block and "Open video page" |
-| **Live, owned video:** scan and judge, then delete a disposable comment through the panel | Scanned 2 of 2 (Complete). Deleted *"bouncer test delete me"*, and it was verified gone after a fresh reload. The other comment was untouched. Audio: "no speech found" (music only), which is correct. |
-| **Live, @orangie/video/7686638305575783694** (read-only, not owned) | Used TikTok subtitles (952 characters); the on-device transcript of the same audio also matched. Scanned 368 of 425 comments (Partial: TikTok stopped loading more). Result: **133 likely scam** (the "@Marrion Jaime" and "@Gray_George" floods, "DM me to learn memecoin" pitches, "@Sophia Ashford \| Day Trader" shills) / 111 uncertain / 124 keep. About $0.02. Delete disabled ("not your video"). |
-| **Live, public pet video** (read-only) | 162 comments in 12 s including 104 replies; reported Partial (162 of 5,624, stopped by you); 161 keep, 1 uncertain |
+| Fixtures: 36 written comments + **42 real @orangie comments** labelled by hand | **78/78** in the expected group |
+| Live, 6 @orangie videos (937 comments, judged with full context) | 381 likely scam / 128 uncertain / 428 keep. Every one of the 84 unique "likely scam" texts was checked by hand, and **none were genuine**. The campaigns are caught (e.g. "@Henry_trader best teacher" ×47, "Ask/learn from @Marrion Jaime" ×85, "@TonnyNoir to learn" ×34, "@HARRYTRADE📊 best coach", "Slide in for guide", "wanna be an insider?"). Genuine replies stay in Keep: "Teach me pls", "Try Claude", "Keep grinding dog". |
+| Live, owned video | A disposable comment was deleted through the panel and verified gone on reload; the other comment was untouched |
+| Live speech-to-text inside the extension | 49 s of real TikTok audio became 181 words in 17.6 s, matching TikTok's own subtitles |
+| Unit and Chrome tests | 24/24 unit, 8/8 Chrome (both TikTok layouts, delete safety, partial coverage, speech-to-text) |
+| Jev spend for the whole build and all testing | **$0.13** of the $5 credit (about $0.00006 per comment) |
 
-**Not verified live:**
-- Bulk deletion of several comments on real TikTok. Only one was deleted live; bulk runs the same verified single-delete in sequence and is covered by the fixture test.
-- Deletion from the profile pop-up. TikTok ignores it, so Bouncer blocks it on purpose.
-- Scanning a video with thousands of comments all the way to the end.
-
-TikTok changes its markup without notice. If a scan finds 0 comments or Delete is never offered, check the selectors at the top of `extension/content.js`.
+**Limits:**
+- "Uncertain" still holds real judgement calls: "DM me" offers on a video asking for help, begging, and gains-flexing. Review that group before deleting.
+- Chrome's speech recognition needs internet and may miss background singing.
+- Bulk deletion on live TikTok has been tested with one comment only, since it's the same verified step repeated.
+- TikTok changes its markup without notice. The selectors are at the top of `extension/content.js`.

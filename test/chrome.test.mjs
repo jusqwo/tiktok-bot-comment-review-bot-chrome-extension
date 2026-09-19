@@ -40,7 +40,7 @@ async function startMockService() {
   const port = 20000 + Math.floor(Math.random() * 20000);
   const child = spawn(process.execPath, ['service/server.mjs'], {
     cwd: ROOT,
-    env: { ...process.env, BOUNCER_MOCK: '1', BOUNCER_PORT: String(port), BOUNCER_USAGE_FILE: join(dir, 'u.json'), BOUNCER_CACHE_FILE: join(dir, 'c.json'), BOUNCER_TRANSCRIPTS_FILE: join(dir, 't.json') },
+    env: { ...process.env, BOUNCER_MOCK: '1', BOUNCER_PORT: String(port), BOUNCER_USAGE_FILE: join(dir, 'u.json'), BOUNCER_CACHE_FILE: join(dir, 'c.json') },
   });
   let out = '';
   child.stdout.on('data', (d) => (out += d));
@@ -210,9 +210,9 @@ test('extension end to end on TikTok-like pages: scan, judge, delete safely', { 
     await until(`document.getElementById('video').innerText.includes('your video')`, 10000);
     assert.match(await panelText('#video'), /Opened from a profile grid/);
     // No subtitles and no embedded data for this video: Bouncer fetches the video's page data,
-    // downloads its sound and transcribes it on this Mac.
-    await until(`/transcribed the audio on this Mac|didn't work/.test(document.getElementById('transcriptStatus').innerText)`, 120000);
-    assert.match(await panelText('#transcriptStatus'), /transcribed the audio on this Mac \(en_US, \d+ s\)/);
+    // downloads its sound and transcribes it with Chrome's built-in speech recognition.
+    await until(`/Transcribed the audio|Couldn't transcribe|No speech/.test(document.getElementById('transcriptStatus').innerText)`, 120000);
+    assert.match(await panelText('#transcriptStatus'), /Transcribed the audio with Chrome's speech recognition \(\d+ s, en-US\)/);
     const heard = await panel.eval(`document.getElementById('transcript').value`);
     assert.match(heard, /budgeting mistakes/i, heard);
     assert.match(heard, /emergency fund/i, heard);

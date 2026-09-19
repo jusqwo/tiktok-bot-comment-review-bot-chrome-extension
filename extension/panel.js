@@ -1,7 +1,9 @@
-import { annotate } from './lib/patterns.js';
+import { SERVICE_URL } from './config.js';
+import { annotate, flagScamAccounts } from './lib/patterns.js';
+import { transcribe as speechToText } from './lib/transcribe.js';
 
 const params = new URLSearchParams(location.search);
-const SVC = params.get('svc') || 'http://127.0.0.1:8787';
+const SVC = params.get('svc') || SERVICE_URL;
 const PINNED_TAB = params.get('tab') ? Number(params.get('tab')) : null; // used by tests
 const CHUNK = 25;
 
@@ -33,7 +35,7 @@ async function health() {
     return h;
   } catch {
     el.className = 'svc bad';
-    el.innerHTML = 'Service offline — run <code>npm start</code>';
+    el.innerHTML = /127\.0\.0\.1|localhost/.test(SVC) ? 'Service offline — run <code>npm start</code>' : 'Bouncer service unreachable — try again shortly';
     return null;
   }
 }
@@ -73,46 +75,45 @@ async function refreshContext() {
 }
 
 // ---------------- transcript ----------------
-// Order of preference: TikTok's own subtitles, then the audio transcribed on this Mac, then what you type.
-function ensureTranscript() {
+// Order of preference: TikTok's own subtitles, then the video's audio transcribed by Chrome's built-in
+// speech recognition, then what you type. The box always shows exactly what Jev will get.
+function ensureTranscript(force = false) {
   const c = S.ctx;
-  if (!c?.videoId || S.tx.videoId === c.videoId) return;
-  const tx = (S.tx = { videoId: c.videoId, text: '', source: '', status: '', busy: false, promise: null });
+  if (!c?.videoId || (!force && S.tx.videoId === c.videoId)) return;
   const box = $('transcript');
-  if (box.dataset.videoId !== c.videoId) {
+  if (S.tx.videoId !== c.videoId) {
     box.value = '';
-    box.dataset.videoId = c.videoId;
+    $('lang').value = [...$('lang').options].some((o) => o.value === c.lang) ? c.lang : 'en';
   }
+  const tx = (S.tx = { videoId: c.videoId, text: '', source: '', status: '', busy: false, promise: null, needsClick: false });
   const fill = (text, source, status) => {
     Object.assign(tx, { text, source, status });
-    if (!box.value.trim()) box.value = text;
+    if (!box.value.trim() || force) box.value = text;
     render();
   };
-  if (c.transcript) return fill(c.transcript, 'TikTok subtitles', `${c.transcriptStatus} Fix anything wrong below.`);
+  if (c.transcript && !force) return fill(c.transcript, 'TikTok subtitles', `${c.transcriptStatus} Fix anything wrong below.`);
   if (!c.hasMedia) {
     tx.status = `${c.transcriptStatus} Type what's said below.`;
     return render();
   }
   tx.busy = true;
-  tx.status = `${c.transcriptStatus} Transcribing the audio on this Mac…`;
+  tx.status = `${c.transcript ? '' : c.transcriptStatus + ' '}Transcribing the audio with Chrome's speech recognition…`;
   render();
   tx.promise = (async () => {
     try {
       const a = await chrome.tabs.sendMessage(S.tabId, { type: 'audio' });
       if (!a?.ok) throw new Error(a?.message || 'could not read the audio');
       const bytes = Uint8Array.from(atob(a.wavBase64), (ch) => ch.charCodeAt(0));
-      const r = await fetch(`${SVC}/transcribe?video=${c.videoId}&lang=${encodeURIComponent(c.lang || 'en')}`, {
-        method: 'POST',
-        headers: { 'x-bouncer': '1', 'content-type': 'audio/wav' },
-        body: bytes,
+      const out = await speechToText(bytes, $('lang').value, (done, total) => {
+        if (S.tx === tx) (tx.status = `Transcribing the audio with Chrome's speech recognition… ${done}/${total}`), render();
       });
-      const out = await r.json();
-      if (!r.ok) throw new Error(out.error || `HTTP ${r.status}`);
       if (S.tx !== tx) return;
-      if (out.text) fill(out.text, 'on-device speech-to-text', `No TikTok subtitles, so Bouncer transcribed the audio on this Mac (${out.locale}, ${Math.round(out.seconds)} s). Fix anything wrong below.`);
+      if (out.text) fill(out.text, "Chrome speech recognition of the video's audio", `Transcribed the audio with Chrome's speech recognition (${Math.round(out.seconds)} s, ${out.locale}). Fix anything wrong below.`);
       else tx.status = "No speech found in the audio. Type what's said below, if anything.";
     } catch (e) {
-      if (S.tx === tx) tx.status = `No TikTok subtitles, and on-device transcription didn't work (${e.message}). Type what's said below.`;
+      if (S.tx !== tx) return;
+      tx.needsClick = !!e.needsGesture;
+      tx.status = e.needsGesture ? 'Click "Transcribe the audio" to let Chrome play it to its speech recognizer.' : `Couldn't transcribe the audio (${e.message}). Type what's said below.`;
     } finally {
       tx.busy = false;
       render();
@@ -229,6 +230,7 @@ async function judge() {
       break;
     }
   }
+  flagScamAccounts(comments, S.results);
   el.textContent = `Judged ${S.results.size} of ${items.length} comments.`;
   S.busy = false;
   await health();
@@ -322,6 +324,7 @@ function renderVideo() {
   const btn = $('openPage');
   if (btn) btn.onclick = () => chrome.tabs.update(S.tabId, { url: `https://www.tiktok.com/@${encodeURIComponent(c.creator.handle)}/video/${c.videoId}` });
   $('transcriptStatus').textContent = S.tx.videoId === c.videoId ? S.tx.status : '';
+  $('transcribeBtn').hidden = !(S.tx.videoId === c.videoId && !S.tx.busy && c.hasMedia && S.tx.source !== 'TikTok subtitles' && (S.tx.needsClick || !S.tx.text));
 }
 
 function renderCoverage() {
@@ -425,6 +428,10 @@ function render() {
 
 // ---------------- events ----------------
 $('scan').onclick = startScan;
+$('transcribeBtn').onclick = () => ensureTranscript(true);
+$('lang').onchange = () => {
+  if (S.tx.source !== 'TikTok subtitles') ensureTranscript(true);
+};
 $('stop').onclick = () => S.port?.postMessage({ type: 'stop' });
 $('rejudge').onclick = () => {
   S.results.clear();

@@ -1,98 +1,8 @@
 {
  "f1": {
-  "hash": "8eadbd0762f91118",
+  "hash": "8055f7f2b3e56b5d",
   "model": "jev-1.13.0",
-  "input_tokens": 1290,
-  "answers": {
-   "verdict": {
-    "type": "choice",
-    "choice": "remove",
-    "confidence": 1,
-    "probabilities": {
-     "keep": 0,
-     "remove": 1,
-     "review": 0
-    }
-   },
-   "impersonation": {
-    "type": "noul",
-    "noul": 0.96
-   },
-   "dm_to_learn": {
-    "type": "noul",
-    "noul": 0.67
-   },
-   "off_platform": {
-    "type": "noul",
-    "noul": 0.99
-   },
-   "third_party_shill": {
-    "type": "noul",
-    "noul": 0.46
-   },
-   "self_promotion": {
-    "type": "noul",
-    "noul": 0.93
-   },
-   "generic_thought_leadership": {
-    "type": "noul",
-    "noul": 0.11
-   },
-   "on_topic": {
-    "type": "noul",
-    "noul": 0.44
-   }
-  }
- },
- "f3": {
-  "hash": "dda20d9e68e8460f",
-  "model": "jev-1.13.0",
-  "input_tokens": 1339,
-  "answers": {
-   "verdict": {
-    "type": "choice",
-    "choice": "remove",
-    "confidence": 1,
-    "probabilities": {
-     "remove": 1,
-     "keep": 0,
-     "review": 0
-    }
-   },
-   "impersonation": {
-    "type": "noul",
-    "noul": 0.05
-   },
-   "dm_to_learn": {
-    "type": "noul",
-    "noul": 0.74
-   },
-   "off_platform": {
-    "type": "noul",
-    "noul": 0.76
-   },
-   "third_party_shill": {
-    "type": "noul",
-    "noul": 0.98
-   },
-   "self_promotion": {
-    "type": "noul",
-    "noul": 0.08
-   },
-   "generic_thought_leadership": {
-    "type": "noul",
-    "noul": 0.16
-   },
-   "on_topic": {
-    "type": "noul",
-    "noul": 0.13
-   }
-  }
- },
- "f4": {
-  "hash": "c0ba58f37ddab245",
-  "model": "jev-1.13.0",
-  "input_tokens": 1346,
+  "input_tokens": 1374,
   "answers": {
    "verdict": {
     "type": "choice",
@@ -106,11 +16,101 @@
    },
    "impersonation": {
     "type": "noul",
+    "noul": 0.96
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.67
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.99
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.38
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.93
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.12
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.4
+   }
+  }
+ },
+ "f3": {
+  "hash": "0c50a15651c3c2be",
+  "model": "jev-1.13.0",
+  "input_tokens": 1423,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "remove",
+    "confidence": 1,
+    "probabilities": {
+     "keep": 0,
+     "remove": 1,
+     "review": 0
+    }
+   },
+   "impersonation": {
+    "type": "noul",
     "noul": 0.05
    },
    "dm_to_learn": {
     "type": "noul",
-    "noul": 0.94
+    "noul": 0.75
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.76
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.98
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.09
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.2
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.11
+   }
+  }
+ },
+ "f4": {
+  "hash": "69caa4906764d38c",
+  "model": "jev-1.13.0",
+  "input_tokens": 1430,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "remove",
+    "confidence": 1,
+    "probabilities": {
+     "review": 0,
+     "keep": 0,
+     "remove": 1
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.05
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.95
    },
    "off_platform": {
     "type": "noul",
@@ -122,7 +122,7 @@
    },
    "self_promotion": {
     "type": "noul",
-    "noul": 0.08
+    "noul": 0.07
    },
    "generic_thought_leadership": {
     "type": "noul",
@@ -130,14 +130,14 @@
    },
    "on_topic": {
     "type": "noul",
-    "noul": 0.67
+    "noul": 0.63
    }
   }
  },
  "f2": {
-  "hash": "f5ce11d643cf44b8",
+  "hash": "cd1520a67c06cf6f",
   "model": "jev-1.13.0",
-  "input_tokens": 1265,
+  "input_tokens": 1349,
   "answers": {
    "verdict": {
     "type": "choice",
@@ -145,8 +145,8 @@
     "confidence": 1,
     "probabilities": {
      "review": 0,
-     "keep": 0,
-     "remove": 1
+     "remove": 1,
+     "keep": 0
     }
    },
    "impersonation": {
@@ -159,39 +159,39 @@
    },
    "off_platform": {
     "type": "noul",
-    "noul": 0.64
+    "noul": 0.66
    },
    "third_party_shill": {
     "type": "noul",
-    "noul": 0.95
+    "noul": 0.98
    },
    "self_promotion": {
     "type": "noul",
-    "noul": 0.97
+    "noul": 0.98
    },
    "generic_thought_leadership": {
     "type": "noul",
-    "noul": 0.23
+    "noul": 0.25
    },
    "on_topic": {
     "type": "noul",
-    "noul": 0.15
+    "noul": 0.13
    }
   }
  },
  "f6": {
-  "hash": "166cfe0a627d1628",
+  "hash": "f54030d897c973a4",
   "model": "jev-1.13.0",
-  "input_tokens": 1278,
+  "input_tokens": 1362,
   "answers": {
    "verdict": {
     "type": "choice",
     "choice": "remove",
     "confidence": 1,
     "probabilities": {
-     "keep": 0,
      "remove": 1,
-     "review": 0
+     "review": 0,
+     "keep": 0
     }
    },
    "impersonation": {
@@ -200,11 +200,11 @@
    },
    "dm_to_learn": {
     "type": "noul",
-    "noul": 0.83
+    "noul": 0.82
    },
    "off_platform": {
     "type": "noul",
-    "noul": 0.98
+    "noul": 0.99
    },
    "third_party_shill": {
     "type": "noul",
@@ -216,27 +216,27 @@
    },
    "generic_thought_leadership": {
     "type": "noul",
-    "noul": 0.14
+    "noul": 0.13
    },
    "on_topic": {
     "type": "noul",
-    "noul": 0.1
+    "noul": 0.12
    }
   }
  },
  "f7": {
-  "hash": "4723fa405a33abd9",
+  "hash": "43a4fcc1c07f21e6",
   "model": "jev-1.13.0",
-  "input_tokens": 1274,
+  "input_tokens": 1358,
   "answers": {
    "verdict": {
     "type": "choice",
     "choice": "remove",
     "confidence": 1,
     "probabilities": {
+     "review": 0,
      "remove": 1,
-     "keep": 0,
-     "review": 0
+     "keep": 0
     }
    },
    "impersonation": {
@@ -245,15 +245,15 @@
    },
    "dm_to_learn": {
     "type": "noul",
-    "noul": 0.65
+    "noul": 0.67
    },
    "off_platform": {
     "type": "noul",
-    "noul": 0.5
+    "noul": 0.48
    },
    "third_party_shill": {
     "type": "noul",
-    "noul": 0.44
+    "noul": 0.49
    },
    "self_promotion": {
     "type": "noul",
@@ -261,18 +261,18 @@
    },
    "generic_thought_leadership": {
     "type": "noul",
-    "noul": 0.14
+    "noul": 0.11
    },
    "on_topic": {
     "type": "noul",
-    "noul": 0.38
+    "noul": 0.33
    }
   }
  },
  "f8": {
-  "hash": "86c4de1b9c77b8f8",
+  "hash": "57e9640931c17569",
   "model": "jev-1.13.0",
-  "input_tokens": 1279,
+  "input_tokens": 1363,
   "answers": {
    "verdict": {
     "type": "choice",
@@ -280,8 +280,8 @@
     "confidence": 1,
     "probabilities": {
      "review": 0,
-     "keep": 0,
-     "remove": 1
+     "remove": 1,
+     "keep": 0
     }
    },
    "impersonation": {
@@ -294,11 +294,11 @@
    },
    "off_platform": {
     "type": "noul",
-    "noul": 0.74
+    "noul": 0.73
    },
    "third_party_shill": {
     "type": "noul",
-    "noul": 0.58
+    "noul": 0.51
    },
    "self_promotion": {
     "type": "noul",
@@ -306,7 +306,7 @@
    },
    "generic_thought_leadership": {
     "type": "noul",
-    "noul": 0.46
+    "noul": 0.44
    },
    "on_topic": {
     "type": "noul",
@@ -315,9 +315,9 @@
   }
  },
  "f10": {
-  "hash": "2b2c3f6cbac135b0",
+  "hash": "1a1d0f8427e3fa19",
   "model": "jev-1.13.0",
-  "input_tokens": 1278,
+  "input_tokens": 1362,
   "answers": {
    "verdict": {
     "type": "choice",
@@ -339,11 +339,11 @@
    },
    "off_platform": {
     "type": "noul",
-    "noul": 0.77
+    "noul": 0.78
    },
    "third_party_shill": {
     "type": "noul",
-    "noul": 0.6
+    "noul": 0.56
    },
    "self_promotion": {
     "type": "noul",
@@ -351,32 +351,32 @@
    },
    "generic_thought_leadership": {
     "type": "noul",
-    "noul": 0.51
+    "noul": 0.45
    },
    "on_topic": {
     "type": "noul",
-    "noul": 0.09
+    "noul": 0.08
    }
   }
  },
  "f9": {
-  "hash": "63197e6faa97ddef",
+  "hash": "eba50e6bf71d6ae1",
   "model": "jev-1.13.0",
-  "input_tokens": 1250,
+  "input_tokens": 1334,
   "answers": {
    "verdict": {
     "type": "choice",
     "choice": "remove",
     "confidence": 1,
     "probabilities": {
-     "remove": 1,
      "keep": 0,
+     "remove": 1,
      "review": 0
     }
    },
    "impersonation": {
     "type": "noul",
-    "noul": 0.06
+    "noul": 0.07
    },
    "dm_to_learn": {
     "type": "noul",
@@ -384,44 +384,44 @@
    },
    "off_platform": {
     "type": "noul",
-    "noul": 0.54
+    "noul": 0.46
    },
    "third_party_shill": {
     "type": "noul",
-    "noul": 0.81
+    "noul": 0.8
    },
    "self_promotion": {
     "type": "noul",
-    "noul": 0.92
+    "noul": 0.93
    },
    "generic_thought_leadership": {
     "type": "noul",
-    "noul": 0.58
+    "noul": 0.57
    },
    "on_topic": {
     "type": "noul",
-    "noul": 0.33
+    "noul": 0.37
    }
   }
  },
  "f11": {
-  "hash": "6ad273a5f6600f80",
+  "hash": "dcddc2088584835e",
   "model": "jev-1.13.0",
-  "input_tokens": 1257,
+  "input_tokens": 1341,
   "answers": {
    "verdict": {
     "type": "choice",
     "choice": "review",
-    "confidence": 0.46,
+    "confidence": 0.47,
     "probabilities": {
+     "review": 0.64,
      "keep": 0.03,
-     "remove": 0.33,
-     "review": 0.64
+     "remove": 0.33
     }
    },
    "impersonation": {
     "type": "noul",
-    "noul": 0.04
+    "noul": 0.03
    },
    "dm_to_learn": {
     "type": "noul",
@@ -433,7 +433,7 @@
    },
    "third_party_shill": {
     "type": "noul",
-    "noul": 0.8
+    "noul": 0.79
    },
    "self_promotion": {
     "type": "noul",
@@ -445,22 +445,22 @@
    },
    "on_topic": {
     "type": "noul",
-    "noul": 0.96
+    "noul": 0.95
    }
   }
  },
  "f5": {
-  "hash": "13fa0f451f8f4134",
+  "hash": "bdc2da3dac5c2237",
   "model": "jev-1.13.0",
-  "input_tokens": 1260,
+  "input_tokens": 1344,
   "answers": {
    "verdict": {
     "type": "choice",
     "choice": "remove",
     "confidence": 1,
     "probabilities": {
-     "review": 0,
      "keep": 0,
+     "review": 0,
      "remove": 1
     }
    },
@@ -478,11 +478,11 @@
    },
    "third_party_shill": {
     "type": "noul",
-    "noul": 0.63
+    "noul": 0.64
    },
    "self_promotion": {
     "type": "noul",
-    "noul": 0.95
+    "noul": 0.96
    },
    "generic_thought_leadership": {
     "type": "noul",
@@ -490,28 +490,28 @@
    },
    "on_topic": {
     "type": "noul",
-    "noul": 0.23
+    "noul": 0.22
    }
   }
  },
  "f12": {
-  "hash": "c7b5c76e34b65aa9",
+  "hash": "479a2df542b074b9",
   "model": "jev-1.13.0",
-  "input_tokens": 1252,
+  "input_tokens": 1336,
   "answers": {
    "verdict": {
     "type": "choice",
     "choice": "remove",
-    "confidence": 0.44,
+    "confidence": 0.42,
     "probabilities": {
      "keep": 0.01,
-     "review": 0.37,
-     "remove": 0.62
+     "review": 0.38,
+     "remove": 0.61
     }
    },
    "impersonation": {
     "type": "noul",
-    "noul": 0.03
+    "noul": 0.04
    },
    "dm_to_learn": {
     "type": "noul",
@@ -519,11 +519,11 @@
    },
    "off_platform": {
     "type": "noul",
-    "noul": 0.11
+    "noul": 0.1
    },
    "third_party_shill": {
     "type": "noul",
-    "noul": 0.53
+    "noul": 0.63
    },
    "self_promotion": {
     "type": "noul",
@@ -531,27 +531,27 @@
    },
    "generic_thought_leadership": {
     "type": "noul",
-    "noul": 0.16
+    "noul": 0.15
    },
    "on_topic": {
     "type": "noul",
-    "noul": 0.58
+    "noul": 0.55
    }
   }
  },
  "f14": {
-  "hash": "fa20f81871783620",
+  "hash": "44916cd53203946e",
   "model": "jev-1.13.0",
-  "input_tokens": 1262,
+  "input_tokens": 1346,
   "answers": {
    "verdict": {
     "type": "choice",
     "choice": "keep",
-    "confidence": 0.61,
+    "confidence": 0.98,
     "probabilities": {
-     "review": 0.25,
-     "remove": 0,
-     "keep": 0.75
+     "keep": 0.99,
+     "review": 0.01,
+     "remove": 0
     }
    },
    "impersonation": {
@@ -560,7 +560,7 @@
    },
    "dm_to_learn": {
     "type": "noul",
-    "noul": 0.03
+    "noul": 0.02
    },
    "off_platform": {
     "type": "noul",
@@ -568,7 +568,7 @@
    },
    "third_party_shill": {
     "type": "noul",
-    "noul": 0.08
+    "noul": 0.04
    },
    "self_promotion": {
     "type": "noul",
@@ -576,27 +576,27 @@
    },
    "generic_thought_leadership": {
     "type": "noul",
-    "noul": 0.1
+    "noul": 0.09
    },
    "on_topic": {
     "type": "noul",
-    "noul": 0.19
+    "noul": 0.17
    }
   }
  },
  "f13": {
-  "hash": "21b70ec0b64dc5c3",
+  "hash": "fb8f13224b1cfe7b",
   "model": "jev-1.13.0",
-  "input_tokens": 1252,
+  "input_tokens": 1336,
   "answers": {
    "verdict": {
     "type": "choice",
     "choice": "remove",
-    "confidence": 0.9,
+    "confidence": 0.93,
     "probabilities": {
      "keep": 0,
-     "review": 0.06,
-     "remove": 0.9400000000000001
+     "review": 0.05,
+     "remove": 0.95
     }
    },
    "impersonation": {
@@ -605,7 +605,7 @@
    },
    "dm_to_learn": {
     "type": "noul",
-    "noul": 0.2
+    "noul": 0.19
    },
    "off_platform": {
     "type": "noul",
@@ -613,7 +613,7 @@
    },
    "third_party_shill": {
     "type": "noul",
-    "noul": 0.91
+    "noul": 0.95
    },
    "self_promotion": {
     "type": "noul",
@@ -621,27 +621,27 @@
    },
    "generic_thought_leadership": {
     "type": "noul",
-    "noul": 0.29
+    "noul": 0.33
    },
    "on_topic": {
     "type": "noul",
-    "noul": 0.54
+    "noul": 0.55
    }
   }
  },
  "f16": {
-  "hash": "1c989f9593b65ac8",
+  "hash": "20536c597bd38552",
   "model": "jev-1.13.0",
-  "input_tokens": 1246,
+  "input_tokens": 1330,
   "answers": {
    "verdict": {
     "type": "choice",
     "choice": "keep",
     "confidence": 1,
     "probabilities": {
-     "keep": 1,
+     "review": 0,
      "remove": 0,
-     "review": 0
+     "keep": 1
     }
    },
    "impersonation": {
@@ -666,18 +666,63 @@
    },
    "generic_thought_leadership": {
     "type": "noul",
-    "noul": 0.04
+    "noul": 0.03
    },
    "on_topic": {
     "type": "noul",
-    "noul": 0.96
+    "noul": 0.97
    }
   }
  },
  "f18": {
-  "hash": "cc35c008f984aa40",
+  "hash": "2fb409ae51530615",
   "model": "jev-1.13.0",
-  "input_tokens": 1284,
+  "input_tokens": 1368,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "keep",
+    "confidence": 0.99,
+    "probabilities": {
+     "remove": 0,
+     "keep": 1,
+     "review": 0
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.02
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.04
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.01
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.02
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.02
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.03
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.78
+   }
+  }
+ },
+ "f17": {
+  "hash": "67be946535f15430",
+  "model": "jev-1.13.0",
+  "input_tokens": 1331,
   "answers": {
    "verdict": {
     "type": "choice",
@@ -691,51 +736,6 @@
    },
    "impersonation": {
     "type": "noul",
-    "noul": 0.02
-   },
-   "dm_to_learn": {
-    "type": "noul",
-    "noul": 0.03
-   },
-   "off_platform": {
-    "type": "noul",
-    "noul": 0.01
-   },
-   "third_party_shill": {
-    "type": "noul",
-    "noul": 0.01
-   },
-   "self_promotion": {
-    "type": "noul",
-    "noul": 0.03
-   },
-   "generic_thought_leadership": {
-    "type": "noul",
-    "noul": 0.03
-   },
-   "on_topic": {
-    "type": "noul",
-    "noul": 0.75
-   }
-  }
- },
- "f17": {
-  "hash": "a2bdd01b197cbb82",
-  "model": "jev-1.13.0",
-  "input_tokens": 1247,
-  "answers": {
-   "verdict": {
-    "type": "choice",
-    "choice": "keep",
-    "confidence": 1,
-    "probabilities": {
-     "review": 0,
-     "keep": 1,
-     "remove": 0
-    }
-   },
-   "impersonation": {
-    "type": "noul",
     "noul": 0.03
    },
    "dm_to_learn": {
@@ -756,27 +756,27 @@
    },
    "generic_thought_leadership": {
     "type": "noul",
-    "noul": 0.24
+    "noul": 0.23
    },
    "on_topic": {
     "type": "noul",
-    "noul": 0.87
+    "noul": 0.88
    }
   }
  },
  "f15": {
-  "hash": "e3f5bff83181bb09",
+  "hash": "ad8b1e992923a7ce",
   "model": "jev-1.13.0",
-  "input_tokens": 1251,
+  "input_tokens": 1335,
   "answers": {
    "verdict": {
     "type": "choice",
     "choice": "keep",
-    "confidence": 0.75,
+    "confidence": 0.73,
     "probabilities": {
-     "review": 0.16,
      "remove": 0,
-     "keep": 0.84
+     "keep": 0.82,
+     "review": 0.18
     }
    },
    "impersonation": {
@@ -793,7 +793,7 @@
    },
    "third_party_shill": {
     "type": "noul",
-    "noul": 0.4
+    "noul": 0.43
    },
    "self_promotion": {
     "type": "noul",
@@ -801,71 +801,26 @@
    },
    "generic_thought_leadership": {
     "type": "noul",
-    "noul": 0.14
+    "noul": 0.13
    },
    "on_topic": {
     "type": "noul",
-    "noul": 0.93
+    "noul": 0.94
    }
   }
  },
  "f19": {
-  "hash": "0f70494c5ce53095",
+  "hash": "530f550a90b0dfde",
   "model": "jev-1.13.0",
-  "input_tokens": 1233,
+  "input_tokens": 1317,
   "answers": {
    "verdict": {
     "type": "choice",
     "choice": "keep",
     "confidence": 1,
     "probabilities": {
-     "remove": 0,
-     "review": 0,
-     "keep": 1
-    }
-   },
-   "impersonation": {
-    "type": "noul",
-    "noul": 0.02
-   },
-   "dm_to_learn": {
-    "type": "noul",
-    "noul": 0.01
-   },
-   "off_platform": {
-    "type": "noul",
-    "noul": 0.01
-   },
-   "third_party_shill": {
-    "type": "noul",
-    "noul": 0.01
-   },
-   "self_promotion": {
-    "type": "noul",
-    "noul": 0.01
-   },
-   "generic_thought_leadership": {
-    "type": "noul",
-    "noul": 0.05
-   },
-   "on_topic": {
-    "type": "noul",
-    "noul": 0.27
-   }
-  }
- },
- "f22": {
-  "hash": "8aec212e4bfc2aaf",
-  "model": "jev-1.13.0",
-  "input_tokens": 1245,
-  "answers": {
-   "verdict": {
-    "type": "choice",
-    "choice": "keep",
-    "confidence": 1,
-    "probabilities": {
-     "review": 0,
      "keep": 1,
+     "review": 0,
      "remove": 0
     }
    },
@@ -891,7 +846,52 @@
    },
    "generic_thought_leadership": {
     "type": "noul",
-    "noul": 0.05
+    "noul": 0.04
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.24
+   }
+  }
+ },
+ "f22": {
+  "hash": "dca5f9f396875963",
+  "model": "jev-1.13.0",
+  "input_tokens": 1329,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "keep",
+    "confidence": 1,
+    "probabilities": {
+     "keep": 1,
+     "review": 0,
+     "remove": 0
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.02
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.01
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.01
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.01
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.01
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.04
    },
    "on_topic": {
     "type": "noul",
@@ -900,17 +900,17 @@
   }
  },
  "f20": {
-  "hash": "617a56bbc50b4aca",
+  "hash": "135dada1d4848f61",
   "model": "jev-1.13.0",
-  "input_tokens": 1241,
+  "input_tokens": 1325,
   "answers": {
    "verdict": {
     "type": "choice",
     "choice": "keep",
     "confidence": 1,
     "probabilities": {
-     "review": 0,
      "keep": 1,
+     "review": 0,
      "remove": 0
     }
    },
@@ -936,27 +936,27 @@
    },
    "generic_thought_leadership": {
     "type": "noul",
-    "noul": 0.08
+    "noul": 0.09
    },
    "on_topic": {
     "type": "noul",
-    "noul": 0.89
+    "noul": 0.88
    }
   }
  },
  "f23": {
-  "hash": "fb2f5ec62aef6a0c",
+  "hash": "6bc7872b162f1264",
   "model": "jev-1.13.0",
-  "input_tokens": 1239,
+  "input_tokens": 1323,
   "answers": {
    "verdict": {
     "type": "choice",
     "choice": "keep",
-    "confidence": 0.92,
+    "confidence": 0.89,
     "probabilities": {
-     "keep": 0.94,
+     "keep": 0.93,
      "review": 0.04,
-     "remove": 0.02
+     "remove": 0.03
     }
    },
    "impersonation": {
@@ -977,7 +977,7 @@
    },
    "self_promotion": {
     "type": "noul",
-    "noul": 0.03
+    "noul": 0.02
    },
    "generic_thought_leadership": {
     "type": "noul",
@@ -990,9 +990,9 @@
   }
  },
  "f24": {
-  "hash": "b31ed995bc89b144",
+  "hash": "7d11e8eb70aedbbf",
   "model": "jev-1.13.0",
-  "input_tokens": 1238,
+  "input_tokens": 1322,
   "answers": {
    "verdict": {
     "type": "choice",
@@ -1000,8 +1000,8 @@
     "confidence": 1,
     "probabilities": {
      "review": 0,
-     "remove": 0,
-     "keep": 1
+     "keep": 1,
+     "remove": 0
     }
    },
    "impersonation": {
@@ -1018,7 +1018,7 @@
    },
    "third_party_shill": {
     "type": "noul",
-    "noul": 0.01
+    "noul": 0.02
    },
    "self_promotion": {
     "type": "noul",
@@ -1030,14 +1030,14 @@
    },
    "on_topic": {
     "type": "noul",
-    "noul": 0.74
+    "noul": 0.75
    }
   }
  },
  "f25": {
-  "hash": "82218f06129c95a9",
+  "hash": "39179d6b3c631271",
   "model": "jev-1.13.0",
-  "input_tokens": 1245,
+  "input_tokens": 1329,
   "answers": {
    "verdict": {
     "type": "choice",
@@ -1063,7 +1063,7 @@
    },
    "third_party_shill": {
     "type": "noul",
-    "noul": 0.01
+    "noul": 0.02
    },
    "self_promotion": {
     "type": "noul",
@@ -1075,23 +1075,23 @@
    },
    "on_topic": {
     "type": "noul",
-    "noul": 0.95
+    "noul": 0.94
    }
   }
  },
  "c1": {
-  "hash": "a0eb69aafe019cb3",
+  "hash": "a17895b22a5cbc01",
   "model": "jev-1.13.0",
-  "input_tokens": 1101,
+  "input_tokens": 1185,
   "answers": {
    "verdict": {
     "type": "choice",
     "choice": "keep",
     "confidence": 1,
     "probabilities": {
+     "review": 0,
      "keep": 1,
-     "remove": 0,
-     "review": 0
+     "remove": 0
     }
    },
    "impersonation": {
@@ -1125,18 +1125,18 @@
   }
  },
  "c3": {
-  "hash": "d8cba4fb51fa8a7f",
+  "hash": "1b0009dd8601e053",
   "model": "jev-1.13.0",
-  "input_tokens": 1122,
+  "input_tokens": 1206,
   "answers": {
    "verdict": {
     "type": "choice",
     "choice": "remove",
     "confidence": 1,
     "probabilities": {
-     "remove": 1,
      "keep": 0,
-     "review": 0
+     "review": 0,
+     "remove": 1
     }
    },
    "impersonation": {
@@ -1145,15 +1145,15 @@
    },
    "dm_to_learn": {
     "type": "noul",
-    "noul": 0.23
+    "noul": 0.22
    },
    "off_platform": {
     "type": "noul",
-    "noul": 0.16
+    "noul": 0.15
    },
    "third_party_shill": {
     "type": "noul",
-    "noul": 0.78
+    "noul": 0.94
    },
    "self_promotion": {
     "type": "noul",
@@ -1170,23 +1170,23 @@
   }
  },
  "c4": {
-  "hash": "adf6357e5e4cbd7a",
+  "hash": "15e3de74fe62c536",
   "model": "jev-1.13.0",
-  "input_tokens": 1170,
+  "input_tokens": 1254,
   "answers": {
    "verdict": {
     "type": "choice",
     "choice": "remove",
     "confidence": 1,
     "probabilities": {
-     "keep": 0,
      "review": 0,
-     "remove": 1
+     "remove": 1,
+     "keep": 0
     }
    },
    "impersonation": {
     "type": "noul",
-    "noul": 0.93
+    "noul": 0.94
    },
    "dm_to_learn": {
     "type": "noul",
@@ -1198,40 +1198,40 @@
    },
    "third_party_shill": {
     "type": "noul",
-    "noul": 0.47
+    "noul": 0.29
    },
    "self_promotion": {
     "type": "noul",
-    "noul": 0.56
+    "noul": 0.58
    },
    "generic_thought_leadership": {
     "type": "noul",
-    "noul": 0.08
+    "noul": 0.07
    },
    "on_topic": {
     "type": "noul",
-    "noul": 0.18
+    "noul": 0.19
    }
   }
  },
  "c2": {
-  "hash": "d2054e5b83b14f6f",
+  "hash": "c1ea2011ff47394f",
   "model": "jev-1.13.0",
-  "input_tokens": 1102,
+  "input_tokens": 1186,
   "answers": {
    "verdict": {
     "type": "choice",
     "choice": "keep",
     "confidence": 1,
     "probabilities": {
-     "review": 0,
      "keep": 1,
+     "review": 0,
      "remove": 0
     }
    },
    "impersonation": {
     "type": "noul",
-    "noul": 0.02
+    "noul": 0.03
    },
    "dm_to_learn": {
     "type": "noul",
@@ -1255,23 +1255,23 @@
    },
    "on_topic": {
     "type": "noul",
-    "noul": 0.93
+    "noul": 0.94
    }
   }
  },
  "c5": {
-  "hash": "89f2d55a81565d63",
+  "hash": "7b634e05fa515d7c",
   "model": "jev-1.13.0",
-  "input_tokens": 1166,
+  "input_tokens": 1250,
   "answers": {
    "verdict": {
     "type": "choice",
     "choice": "keep",
-    "confidence": 0.57,
+    "confidence": 0.61,
     "probabilities": {
-     "keep": 0.72,
-     "remove": 0.19,
-     "review": 0.09
+     "remove": 0.16,
+     "keep": 0.74,
+     "review": 0.1
     }
    },
    "impersonation": {
@@ -1284,7 +1284,7 @@
    },
    "off_platform": {
     "type": "noul",
-    "noul": 0.07
+    "noul": 0.08
    },
    "third_party_shill": {
     "type": "noul",
@@ -1292,7 +1292,7 @@
    },
    "self_promotion": {
     "type": "noul",
-    "noul": 0.02
+    "noul": 0.01
    },
    "generic_thought_leadership": {
     "type": "noul",
@@ -1300,28 +1300,28 @@
    },
    "on_topic": {
     "type": "noul",
-    "noul": 0.77
+    "noul": 0.75
    }
   }
  },
  "c6": {
-  "hash": "e2ffcd2cc2dde39c",
+  "hash": "f97ae13900198239",
   "model": "jev-1.13.0",
-  "input_tokens": 1112,
+  "input_tokens": 1196,
   "answers": {
    "verdict": {
     "type": "choice",
     "choice": "review",
-    "confidence": 0.31,
+    "confidence": 0.29,
     "probabilities": {
-     "review": 0.54,
-     "keep": 0.43,
-     "remove": 0.03
+     "remove": 0.03,
+     "review": 0.53,
+     "keep": 0.44
     }
    },
    "impersonation": {
     "type": "noul",
-    "noul": 0.07
+    "noul": 0.09
    },
    "dm_to_learn": {
     "type": "noul",
@@ -1329,15 +1329,15 @@
    },
    "off_platform": {
     "type": "noul",
-    "noul": 0.04
+    "noul": 0.03
    },
    "third_party_shill": {
     "type": "noul",
-    "noul": 0.25
+    "noul": 0.43
    },
    "self_promotion": {
     "type": "noul",
-    "noul": 0.86
+    "noul": 0.87
    },
    "generic_thought_leadership": {
     "type": "noul",
@@ -1345,19 +1345,19 @@
    },
    "on_topic": {
     "type": "noul",
-    "noul": 0.91
+    "noul": 0.92
    }
   }
  },
  "c7": {
-  "hash": "cc294a1a2bc9d4b8",
+  "hash": "d4935aff86a5bf96",
   "model": "jev-1.13.0",
-  "input_tokens": 1101,
+  "input_tokens": 1185,
   "answers": {
    "verdict": {
     "type": "choice",
     "choice": "keep",
-    "confidence": 1,
+    "confidence": 0.99,
     "probabilities": {
      "remove": 0,
      "keep": 1,
@@ -1382,7 +1382,7 @@
    },
    "self_promotion": {
     "type": "noul",
-    "noul": 0.01
+    "noul": 0.02
    },
    "generic_thought_leadership": {
     "type": "noul",
@@ -1390,23 +1390,23 @@
    },
    "on_topic": {
     "type": "noul",
-    "noul": 0.86
+    "noul": 0.88
    }
   }
  },
  "c8": {
-  "hash": "65abf74bf2c8a308",
+  "hash": "c324a1bc54676588",
   "model": "jev-1.13.0",
-  "input_tokens": 1118,
+  "input_tokens": 1202,
   "answers": {
    "verdict": {
     "type": "choice",
     "choice": "remove",
-    "confidence": 0.71,
+    "confidence": 0.67,
     "probabilities": {
-     "remove": 0.81,
-     "keep": 0.01,
-     "review": 0.18
+     "review": 0.2,
+     "remove": 0.78,
+     "keep": 0.02
     }
    },
    "impersonation": {
@@ -1423,35 +1423,35 @@
    },
    "third_party_shill": {
     "type": "noul",
-    "noul": 0.06
+    "noul": 0.25
    },
    "self_promotion": {
     "type": "noul",
-    "noul": 0.35
+    "noul": 0.31
    },
    "generic_thought_leadership": {
     "type": "noul",
-    "noul": 0.08
+    "noul": 0.09
    },
    "on_topic": {
     "type": "noul",
-    "noul": 0.6
+    "noul": 0.55
    }
   }
  },
  "c10": {
-  "hash": "0bde561d326baebc",
+  "hash": "e294bf95ea1f44df",
   "model": "jev-1.13.0",
-  "input_tokens": 1111,
+  "input_tokens": 1195,
   "answers": {
    "verdict": {
     "type": "choice",
     "choice": "keep",
-    "confidence": 0.91,
+    "confidence": 0.9,
     "probabilities": {
-     "review": 0.06,
      "remove": 0,
-     "keep": 0.94
+     "keep": 0.93,
+     "review": 0.07
     }
    },
    "impersonation": {
@@ -1464,7 +1464,7 @@
    },
    "off_platform": {
     "type": "noul",
-    "noul": 0.15
+    "noul": 0.16
    },
    "third_party_shill": {
     "type": "noul",
@@ -1485,18 +1485,18 @@
   }
  },
  "c11": {
-  "hash": "03421d62876c5225",
+  "hash": "a0753d4d0b05fe08",
   "model": "jev-1.13.0",
-  "input_tokens": 1118,
+  "input_tokens": 1202,
   "answers": {
    "verdict": {
     "type": "choice",
-    "choice": "remove",
-    "confidence": 0.48,
+    "choice": "keep",
+    "confidence": 0.3,
     "probabilities": {
-     "keep": 0.33,
-     "remove": 0.66,
-     "review": 0.01
+     "review": 0.01,
+     "remove": 0.46,
+     "keep": 0.53
     }
    },
    "impersonation": {
@@ -1525,23 +1525,23 @@
    },
    "on_topic": {
     "type": "noul",
-    "noul": 0.42
+    "noul": 0.46
    }
   }
  },
  "c9": {
-  "hash": "b4a6fb8421811329",
+  "hash": "fbb541e70869d47d",
   "model": "jev-1.13.0",
-  "input_tokens": 1105,
+  "input_tokens": 1189,
   "answers": {
    "verdict": {
     "type": "choice",
     "choice": "keep",
     "confidence": 0.63,
     "probabilities": {
-     "keep": 0.76,
-     "review": 0.02,
-     "remove": 0.22
+     "keep": 0.75,
+     "remove": 0.23,
+     "review": 0.02
     }
    },
    "impersonation": {
@@ -1562,7 +1562,592 @@
    },
    "self_promotion": {
     "type": "noul",
+    "noul": 0.01
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.2
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.81
+   }
+  }
+ },
+ "r3": {
+  "hash": "f7cbc01a1bd2b823",
+  "model": "jev-1.13.0",
+  "input_tokens": 1530,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "remove",
+    "confidence": 0.98,
+    "probabilities": {
+     "keep": 0,
+     "review": 0.01,
+     "remove": 0.99
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.11
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.94
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.74
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.74
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.77
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.06
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.45
+   }
+  }
+ },
+ "r2": {
+  "hash": "a2431d5e77f7b313",
+  "model": "jev-1.13.0",
+  "input_tokens": 1553,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "remove",
+    "confidence": 0.51,
+    "probabilities": {
+     "keep": 0.16,
+     "remove": 0.68,
+     "review": 0.16
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.05
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.03
+   },
+   "off_platform": {
+    "type": "noul",
     "noul": 0.02
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.94
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.05
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.22
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.17
+   }
+  }
+ },
+ "r1": {
+  "hash": "2eff6925baea328e",
+  "model": "jev-1.13.0",
+  "input_tokens": 1549,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "remove",
+    "confidence": 0.25,
+    "probabilities": {
+     "keep": 0.08,
+     "review": 0.42,
+     "remove": 0.5
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.06
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.48
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.43
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.93
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.06
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.04
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.59
+   }
+  }
+ },
+ "r4": {
+  "hash": "96df1a8719e23abf",
+  "model": "jev-1.13.0",
+  "input_tokens": 1549,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "remove",
+    "confidence": 0.12,
+    "probabilities": {
+     "review": 0.3,
+     "remove": 0.41,
+     "keep": 0.29
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.04
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.04
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.02
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.94
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.05
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.15
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.44
+   }
+  }
+ },
+ "r6": {
+  "hash": "1fe1e541f6030b0b",
+  "model": "jev-1.13.0",
+  "input_tokens": 1478,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "keep",
+    "confidence": 0.87,
+    "probabilities": {
+     "keep": 0.91,
+     "review": 0.06,
+     "remove": 0.03
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.03
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.1
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.04
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.05
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.04
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.22
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.18
+   }
+  }
+ },
+ "r7": {
+  "hash": "f41deafa25d9da82",
+  "model": "jev-1.13.0",
+  "input_tokens": 1543,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "keep",
+    "confidence": 0.51,
+    "probabilities": {
+     "review": 0.29,
+     "keep": 0.67,
+     "remove": 0.04
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.03
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.06
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.11
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.73
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.07
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.04
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.88
+   }
+  }
+ },
+ "r8": {
+  "hash": "86c2ab332377cb51",
+  "model": "jev-1.13.0",
+  "input_tokens": 1494,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "keep",
+    "confidence": 0.59,
+    "probabilities": {
+     "keep": 0.72,
+     "review": 0.21,
+     "remove": 0.07
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.03
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.1
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.35
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.76
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.08
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.04
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.94
+   }
+  }
+ },
+ "r9": {
+  "hash": "d8db520cdef019d7",
+  "model": "jev-1.13.0",
+  "input_tokens": 1485,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "remove",
+    "confidence": 0.94,
+    "probabilities": {
+     "review": 0.04,
+     "keep": 0,
+     "remove": 0.96
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.06
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.12
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.11
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.42
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.62
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.24
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.13
+   }
+  }
+ },
+ "r10": {
+  "hash": "3c83d2586e3e35df",
+  "model": "jev-1.13.0",
+  "input_tokens": 1531,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "remove",
+    "confidence": 0.87,
+    "probabilities": {
+     "keep": 0.04,
+     "remove": 0.91,
+     "review": 0.05
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.05
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.08
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.05
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.14
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.69
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.09
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.09
+   }
+  }
+ },
+ "r5": {
+  "hash": "43a7e1733b3e65e2",
+  "model": "jev-1.13.0",
+  "input_tokens": 1504,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "keep",
+    "confidence": 0.46,
+    "probabilities": {
+     "remove": 0.12,
+     "keep": 0.64,
+     "review": 0.24
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.06
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.12
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.05
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.11
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.05
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.07
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.31
+   }
+  }
+ },
+ "r11": {
+  "hash": "d3240e8366caeab8",
+  "model": "jev-1.13.0",
+  "input_tokens": 1332,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "remove",
+    "confidence": 0.53,
+    "probabilities": {
+     "keep": 0.11,
+     "remove": 0.69,
+     "review": 0.2
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.78
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.31
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.07
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.96
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.04
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.2
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.5
+   }
+  }
+ },
+ "r12": {
+  "hash": "62728b7783a4b43b",
+  "model": "jev-1.13.0",
+  "input_tokens": 1332,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "remove",
+    "confidence": 0.89,
+    "probabilities": {
+     "keep": 0.02,
+     "remove": 0.93,
+     "review": 0.05
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.09
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.49
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.56
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.96
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.39
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.08
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.59
+   }
+  }
+ },
+ "r13": {
+  "hash": "9bf01a3cb7daca20",
+  "model": "jev-1.13.0",
+  "input_tokens": 1324,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "remove",
+    "confidence": 0.09,
+    "probabilities": {
+     "keep": 0.23,
+     "remove": 0.39,
+     "review": 0.38
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.04
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.03
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.02
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.94
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.04
    },
    "generic_thought_leadership": {
     "type": "noul",
@@ -1570,7 +2155,1312 @@
    },
    "on_topic": {
     "type": "noul",
-    "noul": 0.78
+    "noul": 0.42
+   }
+  }
+ },
+ "r14": {
+  "hash": "1a93a0f5c87b1d80",
+  "model": "jev-1.13.0",
+  "input_tokens": 1284,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "remove",
+    "confidence": 0.97,
+    "probabilities": {
+     "keep": 0,
+     "review": 0.02,
+     "remove": 0.98
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.09
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.67
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.42
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.72
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.85
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.23
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.58
+   }
+  }
+ },
+ "r15": {
+  "hash": "a00da8a6cfe2ced9",
+  "model": "jev-1.13.0",
+  "input_tokens": 1320,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "remove",
+    "confidence": 0.32,
+    "probabilities": {
+     "remove": 0.54,
+     "keep": 0.18,
+     "review": 0.28
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.06
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.03
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.01
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.96
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.04
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.21
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.38
+   }
+  }
+ },
+ "r18": {
+  "hash": "e986983356a19890",
+  "model": "jev-1.13.0",
+  "input_tokens": 1295,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "keep",
+    "confidence": 0.86,
+    "probabilities": {
+     "keep": 0.91,
+     "review": 0.02,
+     "remove": 0.07
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.05
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.03
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.01
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.08
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.05
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.86
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.58
+   }
+  }
+ },
+ "r17": {
+  "hash": "76504bb8b9951d7e",
+  "model": "jev-1.13.0",
+  "input_tokens": 1331,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "remove",
+    "confidence": 0.56,
+    "probabilities": {
+     "review": 0.24,
+     "keep": 0.06,
+     "remove": 0.7
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.05
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.15
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.06
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.98
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.05
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.37
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.35
+   }
+  }
+ },
+ "r16": {
+  "hash": "c901f19413cc53b1",
+  "model": "jev-1.13.0",
+  "input_tokens": 1224,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "remove",
+    "confidence": 0.88,
+    "probabilities": {
+     "review": 0.07,
+     "keep": 0.01,
+     "remove": 0.92
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.84
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.21
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.05
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.97
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.07
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.6
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.26
+   }
+  }
+ },
+ "r19": {
+  "hash": "278b30ee1b71e284",
+  "model": "jev-1.13.0",
+  "input_tokens": 1294,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "keep",
+    "confidence": 0.7,
+    "probabilities": {
+     "review": 0.07,
+     "remove": 0.13,
+     "keep": 0.8
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.03
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.02
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.01
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.13
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.02
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.96
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.44
+   }
+  }
+ },
+ "r20": {
+  "hash": "51fdc132732b7e62",
+  "model": "jev-1.13.0",
+  "input_tokens": 1262,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "keep",
+    "confidence": 0.22,
+    "probabilities": {
+     "review": 0.42,
+     "remove": 0.1,
+     "keep": 0.48
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.04
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.08
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.03
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.5
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.03
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.06
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.25
+   }
+  }
+ },
+ "r21": {
+  "hash": "35a9b71d9b2e23a0",
+  "model": "jev-1.13.0",
+  "input_tokens": 1266,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "keep",
+    "confidence": 0.33,
+    "probabilities": {
+     "keep": 0.55,
+     "review": 0.38,
+     "remove": 0.07
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.06
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.13
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.04
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.48
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.02
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.06
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.31
+   }
+  }
+ },
+ "r22": {
+  "hash": "0123a439126f3e53",
+  "model": "jev-1.13.0",
+  "input_tokens": 1284,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "keep",
+    "confidence": 0.48,
+    "probabilities": {
+     "keep": 0.66,
+     "remove": 0.16,
+     "review": 0.18
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.05
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.13
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.04
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.24
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.02
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.04
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.54
+   }
+  }
+ },
+ "r23": {
+  "hash": "11e92344a9ef5da4",
+  "model": "jev-1.13.0",
+  "input_tokens": 1283,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "keep",
+    "confidence": 0.86,
+    "probabilities": {
+     "review": 0.08,
+     "keep": 0.91,
+     "remove": 0.01
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.03
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.25
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.02
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.17
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.01
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.1
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.68
+   }
+  }
+ },
+ "r24": {
+  "hash": "12eb6080324d11e0",
+  "model": "jev-1.13.0",
+  "input_tokens": 1289,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "keep",
+    "confidence": 0.33,
+    "probabilities": {
+     "keep": 0.55,
+     "review": 0.32,
+     "remove": 0.13
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.05
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.03
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.01
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.19
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.02
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.21
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.4
+   }
+  }
+ },
+ "r26": {
+  "hash": "09604a2fc3e9a78a",
+  "model": "jev-1.13.0",
+  "input_tokens": 1344,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "keep",
+    "confidence": 0.16,
+    "probabilities": {
+     "keep": 0.44,
+     "review": 0.18,
+     "remove": 0.38
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.05
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.05
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.02
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.3
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.03
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.18
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.34
+   }
+  }
+ },
+ "r25": {
+  "hash": "8eb3354628c964c6",
+  "model": "jev-1.13.0",
+  "input_tokens": 1289,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "keep",
+    "confidence": 0.97,
+    "probabilities": {
+     "remove": 0.02,
+     "keep": 0.98,
+     "review": 0
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.03
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.02
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.01
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.02
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.02
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.81
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.86
+   }
+  }
+ },
+ "r27": {
+  "hash": "99d8c0fdff1cb1a4",
+  "model": "jev-1.13.0",
+  "input_tokens": 1442,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "remove",
+    "confidence": 0.16,
+    "probabilities": {
+     "keep": 0.28,
+     "remove": 0.44,
+     "review": 0.28
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.05
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.19
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.03
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.94
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.04
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.13
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.67
+   }
+  }
+ },
+ "r28": {
+  "hash": "856509569be51c79",
+  "model": "jev-1.13.0",
+  "input_tokens": 1359,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "remove",
+    "confidence": 0.88,
+    "probabilities": {
+     "keep": 0.03,
+     "review": 0.06,
+     "remove": 0.91
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.08
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.75
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.4
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.6
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.27
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.05
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.32
+   }
+  }
+ },
+ "r29": {
+  "hash": "51651f8806b3c1fa",
+  "model": "jev-1.13.0",
+  "input_tokens": 1366,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "remove",
+    "confidence": 0.94,
+    "probabilities": {
+     "remove": 0.96,
+     "keep": 0.02,
+     "review": 0.02
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.07
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.91
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.63
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.4
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.68
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.13
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.35
+   }
+  }
+ },
+ "r30": {
+  "hash": "f100a64a48b2d17d",
+  "model": "jev-1.13.0",
+  "input_tokens": 1433,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "remove",
+    "confidence": 0.84,
+    "probabilities": {
+     "remove": 0.9,
+     "keep": 0.02,
+     "review": 0.08
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.05
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.62
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.07
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.98
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.07
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.13
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.14
+   }
+  }
+ },
+ "r31": {
+  "hash": "07bdb9264b390c68",
+  "model": "jev-1.13.0",
+  "input_tokens": 1402,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "keep",
+    "confidence": 0.83,
+    "probabilities": {
+     "review": 0.07,
+     "remove": 0.04,
+     "keep": 0.89
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.03
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.13
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.04
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.12
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.02
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.1
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.45
+   }
+  }
+ },
+ "r32": {
+  "hash": "b7eb8b056c905eaa",
+  "model": "jev-1.13.0",
+  "input_tokens": 1370,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "keep",
+    "confidence": 0.22,
+    "probabilities": {
+     "keep": 0.48,
+     "remove": 0.07,
+     "review": 0.45
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.04
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.16
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.08
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.31
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.05
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.04
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.09
+   }
+  }
+ },
+ "r33": {
+  "hash": "71debd01221130de",
+  "model": "jev-1.13.0",
+  "input_tokens": 1393,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "keep",
+    "confidence": 0.31,
+    "probabilities": {
+     "review": 0.17,
+     "keep": 0.54,
+     "remove": 0.29
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.03
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.11
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.03
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.2
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.02
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.1
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.14
+   }
+  }
+ },
+ "r34": {
+  "hash": "bbe4c6aaabbf5cc6",
+  "model": "jev-1.13.0",
+  "input_tokens": 1363,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "keep",
+    "confidence": 0.36,
+    "probabilities": {
+     "keep": 0.57,
+     "review": 0.27,
+     "remove": 0.16
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.03
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.03
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.05
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.27
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.17
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.1
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.27
+   }
+  }
+ },
+ "r35": {
+  "hash": "777273145ab6ad3a",
+  "model": "jev-1.13.0",
+  "input_tokens": 1339,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "remove",
+    "confidence": 0.95,
+    "probabilities": {
+     "remove": 0.97,
+     "review": 0.01,
+     "keep": 0.02
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.29
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.82
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.55
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.5
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.75
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.13
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.71
+   }
+  }
+ },
+ "r36": {
+  "hash": "11a624064ecea7d8",
+  "model": "jev-1.13.0",
+  "input_tokens": 1354,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "remove",
+    "confidence": 0.86,
+    "probabilities": {
+     "keep": 0.02,
+     "review": 0.07,
+     "remove": 0.91
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.06
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.72
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.09
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.89
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.81
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.2
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.37
+   }
+  }
+ },
+ "r37": {
+  "hash": "8fbeed92e0112218",
+  "model": "jev-1.13.0",
+  "input_tokens": 1272,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "keep",
+    "confidence": 0.99,
+    "probabilities": {
+     "keep": 1,
+     "review": 0,
+     "remove": 0
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.03
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.05
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.01
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.02
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.02
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.18
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.58
+   }
+  }
+ },
+ "r38": {
+  "hash": "fc3705a859233d71",
+  "model": "jev-1.13.0",
+  "input_tokens": 1262,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "keep",
+    "confidence": 0.86,
+    "probabilities": {
+     "keep": 0.91,
+     "review": 0.03,
+     "remove": 0.06
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.03
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.52
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.07
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.07
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.04
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.04
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.79
+   }
+  }
+ },
+ "r39": {
+  "hash": "9dff755397a51f56",
+  "model": "jev-1.13.0",
+  "input_tokens": 1326,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "remove",
+    "confidence": 0.14,
+    "probabilities": {
+     "keep": 0.15,
+     "review": 0.42,
+     "remove": 0.43
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.06
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.07
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.42
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.55
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.37
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.12
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.4
+   }
+  }
+ },
+ "r41": {
+  "hash": "3e797515bcc31822",
+  "model": "jev-1.13.0",
+  "input_tokens": 1300,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "remove",
+    "confidence": 0.66,
+    "probabilities": {
+     "remove": 0.77,
+     "keep": 0.02,
+     "review": 0.21
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.12
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.09
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.03
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.63
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.33
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.34
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.18
+   }
+  }
+ },
+ "r40": {
+  "hash": "be46944efd2af5d0",
+  "model": "jev-1.13.0",
+  "input_tokens": 1385,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "remove",
+    "confidence": 0.5,
+    "probabilities": {
+     "remove": 0.67,
+     "review": 0.19,
+     "keep": 0.14
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.06
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.03
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.01
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.95
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.03
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.21
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.17
+   }
+  }
+ },
+ "r42": {
+  "hash": "dc822939d700f9db",
+  "model": "jev-1.13.0",
+  "input_tokens": 1321,
+  "answers": {
+   "verdict": {
+    "type": "choice",
+    "choice": "remove",
+    "confidence": 0.64,
+    "probabilities": {
+     "review": 0.15,
+     "remove": 0.76,
+     "keep": 0.09
+    }
+   },
+   "impersonation": {
+    "type": "noul",
+    "noul": 0.04
+   },
+   "dm_to_learn": {
+    "type": "noul",
+    "noul": 0.12
+   },
+   "off_platform": {
+    "type": "noul",
+    "noul": 0.06
+   },
+   "third_party_shill": {
+    "type": "noul",
+    "noul": 0.34
+   },
+   "self_promotion": {
+    "type": "noul",
+    "noul": 0.19
+   },
+   "generic_thought_leadership": {
+    "type": "noul",
+    "noul": 0.57
+   },
+   "on_topic": {
+    "type": "noul",
+    "noul": 0.2
    }
   }
  }

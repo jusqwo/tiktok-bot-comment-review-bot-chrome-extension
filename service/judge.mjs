@@ -8,11 +8,14 @@ export const THRESHOLDS = {
   signal: 0.8, // a named signal must be at least this strong to justify "likely scam"
   keep: 0.6, // verdict "keep" probability needed for "keep"
   clean: 0.5, // every harm/promo signal must be below this for "keep"
-  flood: 3, // same text posted this many times on the video = copy-paste campaign
+  flood: 3, // same text (or the same @account pushed) this many times on the video = campaign
   heavyAuthor: 5, // an account with this many comments on one video is flooding it
+  campaignSignal: 0.6, // a campaign needs only a moderate scam signal
+  strongRemove: 0.85, // Jev very sure it should go: a moderate signal is enough
 };
 
-const LIMITS = { caption: 1500, transcript: 4000, bio: 300, text: 1000, parent: 500, reply: 200 };
+// A TikTok is at most 10 minutes (~10k characters of speech), so the transcript limit keeps it whole.
+const LIMITS = { caption: 2200, transcript: 12000, bio: 300, text: 1000, parent: 500, reply: 200 };
 
 export const QUESTIONS = {
   verdict: {
@@ -25,7 +28,7 @@ export const QUESTIONS = {
       review:
         'Unclear: the comment contains some promotion, a link, a mention or a contact request, but it could plausibly come from a genuine viewer (for example a relevant recommendation, a friendly shout-out from another creator, or a question about the topic). A human should decide.',
       keep:
-        'A genuine viewer comment: a reaction, question, opinion, joke, compliment, criticism or conversation about the video or the creator, including rude, negative or very short comments.',
+        'A genuine viewer comment: a reaction, question, opinion, joke, compliment, encouragement, criticism or conversation about the video or the creator, including tagging friends with @name to show them the video, asking the creator for help or money, and rude, negative or very short comments.',
     },
   },
   impersonation: {
@@ -50,7 +53,7 @@ export const QUESTIONS = {
   third_party_shill: {
     type: 'noul',
     instructions:
-      "Is `comment.text` a testimonial or recommendation that points readers to a specific person or service other than the creator in `video.creator`, such as an 'expert', 'mentor', 'account manager', trader, investment platform, hacker or 'recovery' service? Thanking or praising the creator does not count.",
+      "Does `comment.text` point readers to a specific person, account or service other than the creator in `video.creator` to learn from or get tips, mentorship, trading signals, investment help or account recovery from? Short forms count, for example '@name to learn', '@name best teacher', 'learn from @name', 'ask @name', 'tips @name', '@name for mentorship', or praise of an 'expert', 'mentor', 'account manager', trader or 'recovery' service. Thanking or praising the creator, and tagging a friend to show them the video, do not count.",
   },
   self_promotion: {
     type: 'noul',
@@ -128,6 +131,7 @@ export function buildState(video, c) {
   const rp = {};
   if (p.same_text_other_accounts > 0) rp.same_text_posted_by_other_accounts = p.same_text_other_accounts;
   if (p.same_text_by_this_author > 1) rp.same_text_posted_by_this_author = p.same_text_by_this_author;
+  if (p.same_mention_in_comments >= 3) rp.comments_mentioning_the_same_account = p.same_mention_in_comments;
   if (p.author_comment_count > 1) rp.comments_by_this_author_on_this_video = p.author_comment_count;
   if (Object.keys(rp).length) state.repeated_patterns = rp;
   return state;
@@ -155,14 +159,27 @@ export function decide(answers, c) {
   const pat = c.patterns || {};
   const copies = Math.max(pat.same_text_by_this_author || 1, (pat.same_text_other_accounts || 0) + 1);
   // Many *different* comments only counts when this one is off-topic: an engaged viewer can reply a lot.
-  const flooding = copies >= T.flood || ((pat.author_comment_count || 1) >= T.heavyAuthor && offTopic >= 0.5);
+  const pushed = pat.same_mention_in_comments || 0; // comments on this video pushing the same @account
+  const flooding = copies >= T.flood || pushed >= T.flood || ((pat.author_comment_count || 1) >= T.heavyAuthor && offTopic >= 0.5);
 
   let bucket;
   if (pr.remove >= T.remove && harm >= T.signal) bucket = 'scam';
+  else if (pr.remove >= T.strongRemove && (harm >= T.campaignSignal || (promo >= T.campaignSignal && offTopic >= 0.5))) bucket = 'scam';
   else if (pr.remove >= T.removePromoOnly && promo >= T.signal && offTopic >= 0.5) bucket = 'scam';
-  // A named scam signal from an account flooding the video, unless Jev is confident it is genuine.
-  else if (harm >= T.signal && flooding && pr.keep < 0.5) bucket = 'scam';
-  else if (pr.keep >= T.keep && harm < T.clean && promo < T.clean && copies < T.flood) bucket = 'keep';
+  // A scam signal inside a campaign (copy-paste, or many comments pushing one @account), unless Jev is confident it is genuine.
+  else if (harm >= T.campaignSignal && flooding && pr.keep < 0.5) bucket = 'scam';
+  // Genuine: Jev says keep (or sees no scam at all) and nothing points to a scam. Generic encouragement
+  // alone doesn't block keep when Jev is confident; self-promotion and campaigns always do. An on-topic
+  // reply Jev rates genuine may name a tool or person (e.g. "try Claude") unless the scam signal is strong.
+  else if (
+    (pr.keep >= T.keep || pr.remove < 0.3) &&
+    harm < (pr.keep >= T.keep && s.on_topic >= 0.6 ? T.signal : T.clean) &&
+    s.self_promotion < T.clean &&
+    (s.generic_thought_leadership < T.clean || pr.keep >= 0.7) &&
+    copies < T.flood &&
+    !(pushed >= T.flood && harm >= 0.3)
+  )
+    bucket = 'keep';
   else bucket = 'uncertain';
 
   const fired = [...HARM, ...PROMO]
@@ -173,6 +190,7 @@ export function decide(answers, c) {
   if (pat.same_text_by_this_author >= 2) facts.push(`Posted the same comment ${pat.same_text_by_this_author} times`);
   else if ((pat.author_comment_count || 1) >= T.heavyAuthor) facts.push(`${pat.author_comment_count} comments from this account`);
   if (pat.same_text_other_accounts > 0) facts.push(`Same text posted by ${pat.same_text_other_accounts} other account${pat.same_text_other_accounts > 1 ? 's' : ''}`);
+  if (pushed >= T.flood && harm >= 0.3) facts.push(`Same @account pushed in ${pushed} comments`);
   if (c.facts?.author_name_resembles_creator) facts.push('Name resembles yours');
   if ((promo >= 0.5 || harm >= 0.5) && offTopic >= 0.5) facts.push('Not about your video');
 
